@@ -1,0 +1,35 @@
+/* Background */
+.loader-container {
+    width: 100vw;
+    height: 100vh;
+    background: var(--light-bg);
+    
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .loader {
+    width: 100px;
+    height: 100px;
+  }
+  .loader path {
+    fill: var(--primary-color);
+    transform-origin: center;
+    animation: rotate 1.5s linear infinite;
+  }
+  .loader .loaderreverse {
+    animation-direction: reverse ;
+  }
+  
+  @keyframes rotate {
+    to {
+      transform: rotate(360deg);
+    }
+    from {
+      transform: rotate(0deg);
+    }
+  }
+  
