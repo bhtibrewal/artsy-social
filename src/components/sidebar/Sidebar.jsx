@@ -5,19 +5,19 @@ const sidebar = [
   {
       id: 1,
     name: "Home",
-    icon: <AiOutlineHome></AiOutlineHome>,
+    icon: <AiOutlineHome/>,
     route: "/",
   },
   {
     id: 2,
     name: "Profile",
-    icon: <FaRegUser></FaRegUser>,
+    icon: <FaRegUser/>,
     route: "/user-profile",
   },
   {
     id: 3,
     name: "Settings",
-    icon: <FiSettings></FiSettings>,
+    icon: <FiSettings/>,
     route: "/user-profile",
   },
 ];

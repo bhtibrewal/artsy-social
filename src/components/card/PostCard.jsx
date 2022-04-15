@@ -24,7 +24,7 @@ export const PostCard = ({ post }) => {
           <p className="">@bhtibrewal</p>
         </div>
       </div>
-      <img src="http://res.cloudinary.com/rohitdhatrak/image/upload/v1643387481/ml4jmfl2vn4p46idm72k.jpg" />
+      <img alt ='Focus ' src="http://res.cloudinary.com/rohitdhatrak/image/upload/v1643387481/ml4jmfl2vn4p46idm72k.jpg" />
       <div className="post-content">
         <p className="body-l">Focus </p>
         <p>
@@ -38,7 +38,7 @@ export const PostCard = ({ post }) => {
           lorem. Mauris ultricies turpis et ultricies pharetra.
         </p>
       </div>
-      <div className="">
+      <div className="post-actions">
         <AiOutlineLike />
         <AiOutlineDislike />
         <FaRegCommentDots />
