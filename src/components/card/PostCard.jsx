@@ -19,12 +19,12 @@ export const PostCard = ({ post }) => {
             title="Bhavika Tibrewal"
           />
         </div>
-        <div className="user-name">
-          <p>Bhavika Tibrewal</p>
-          <p className="">@bhtibrewal</p>
+        <div>
+          <p className="user-name">Bhavika Tibrewal</p>
+          <p className="user-handle">@bhtibrewal</p>
         </div>
       </div>
-      <img alt ='Focus ' src="http://res.cloudinary.com/rohitdhatrak/image/upload/v1643387481/ml4jmfl2vn4p46idm72k.jpg" />
+      <img alt ='Focus' src="http://res.cloudinary.com/rohitdhatrak/image/upload/v1643387481/ml4jmfl2vn4p46idm72k.jpg" />
       <div className="post-content">
         <p className="body-l">Focus </p>
         <p>
