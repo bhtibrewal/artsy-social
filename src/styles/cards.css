@@ -4,3 +4,12 @@
   flex-direction: column;
   gap: 1rem;
 }
+.post-card{
+  width: fit-content;
+}
+.post-actions{
+  display: flex;
+  gap: 1rem;
+  margin:0 2rem 2rem;
+
+}
