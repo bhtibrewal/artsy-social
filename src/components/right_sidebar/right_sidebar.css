@@ -1,0 +1,8 @@
+.sidebar-section{
+    background-color: var(--light-text);
+    padding: 1.5rem;
+    border-radius: 4px;
+}
+.right-sidebar{
+    padding:0 2rem;
+}

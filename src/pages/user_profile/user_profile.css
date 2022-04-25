@@ -1,0 +1,26 @@
+.user-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1rem;
+}
+.stats-cards {
+  background-color: var(--light-text);
+  border-radius: 4px;
+  padding: 1rem;
+}
+.stats-card-icon {
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+.followers-card {
+  background-color: var(--alert-primary-bg);
+  color: var(--alert-primary-text);
+}
+.following-card {
+  background-color: var(--success-bg);
+  color: var(--success-text);
+}
+.posts-card {
+  background-color: var(--danger-bg);
+  color: var(--danger-text);
+}

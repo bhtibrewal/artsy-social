@@ -18,7 +18,7 @@ const sidebar = [
     id: 3,
     name: "Settings",
     icon: <FiSettings/>,
-    route: "/user-profile",
+    route: "/settings",
   },
 ];
 export const Sidebar = () => {

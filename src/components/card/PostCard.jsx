@@ -1,4 +1,9 @@
-import { AiOutlineLike, AiOutlineDislike, FaRegCommentDots } from "../../assets/icons";
+import {
+  FaHeart,
+  FaRegHeart,
+  FaRegComment,
+  FaTelegramPlane,
+} from "../../assets/icons";
 export const PostCard = ({ post }) => {
   //   const {
   //     title,
@@ -9,7 +14,7 @@ export const PostCard = ({ post }) => {
   //     likes: { likeCount },
   //   } = post;
   return (
-    <div className="card">
+    <div className="card post-card">
       <div className="flex-align-center">
         <div className="avatar avatar-s">
           <img
@@ -24,24 +29,26 @@ export const PostCard = ({ post }) => {
           <p className="user-handle">@bhtibrewal</p>
         </div>
       </div>
-      <img alt ='Focus' src="http://res.cloudinary.com/rohitdhatrak/image/upload/v1643387481/ml4jmfl2vn4p46idm72k.jpg" />
+      <img
+        alt="Focus"
+        src="http://res.cloudinary.com/rohitdhatrak/image/upload/v1643387481/ml4jmfl2vn4p46idm72k.jpg"
+      />
       <div className="post-content">
         <p className="body-l">Focus </p>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ex
-          nunc, gravida nec euismod sed, ultrices in risus. Vivamus lacinia orci
-          sed ante porttitor, non tincidunt augue maximus. Phasellus augue leo,
-          eleifend nec tortor nec, auctor mattis justo. Sed in congue lacus.
-          Curabitur vel felis arcu. Ut dictum auctor leo ut efficitur.
-          Vestibulum magna arcu, tempus vitae aliquet in, dignissim et nunc.
-          Cras ut est enim. Sed non arcu ornare, lobortis purus id, cursus
-          lorem. Mauris ultricies turpis et ultricies pharetra.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </p>
       </div>
       <div className="post-actions">
-        <AiOutlineLike />
-        <AiOutlineDislike />
-        <FaRegCommentDots />
+        <span>
+          <FaRegHeart />
+        </span>
+        <span>
+          <FaRegComment />
+        </span>
+        <span>
+          <FaTelegramPlane />
+        </span>
       </div>
     </div>
   );
