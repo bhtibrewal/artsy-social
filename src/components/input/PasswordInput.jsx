@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaEye, FaEyeSlash } from "../../assets/icons";
 
 export const PasswordInput = ({ value, onChange, label }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -10,10 +11,13 @@ export const PasswordInput = ({ value, onChange, label }) => {
         value={value}
         onChange={onChange}
       />
-      <i
+      <span
         onClick={() => setShowPassword((prev) => !prev)}
-        className={`fas ${showPassword ? "fa-eye" : "fa-eye-slash"}`}
-      ></i>
+        className="icon"
+        title={showPassword ? "Hide Password " : "Show Password"}
+      >
+        {showPassword ? <FaEye /> : <FaEyeSlash />}
+      </span>
       <span className="input-label">{label}</span>
     </div>
   );

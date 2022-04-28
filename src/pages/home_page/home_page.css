@@ -17,3 +17,18 @@
     font-family: inherit;
     font-size: larger;
 }
+.new-post_actions{
+    display:flex;
+    justify-content: space-between;
+}
+.new-post_actions>*{
+    gap: 1.5rem;
+}
+.icons{
+    font-size: 1.4em;
+}
+
+.gif-icon{
+    
+    border:solid ;
+}
