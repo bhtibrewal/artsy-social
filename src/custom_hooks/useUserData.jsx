@@ -3,10 +3,10 @@ import { useReducer, useState } from "react";
 
 export const useUserData = () => {
   const encodedToken = localStorage.getItem("token");
-  const initialisUserLoggedIn = encodedToken !== null ? true : false;
+  const initialIsUserLoggedIn = encodedToken !== null ? true : false;
   if (encodedToken !== null)
     axios.defaults.headers.common["authorization"] = encodedToken;
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(initialisUserLoggedIn);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(initialIsUserLoggedIn);
   const localUserData = JSON.parse(localStorage.getItem("user"));
   const initialUserData = localUserData || {};
 
@@ -20,8 +20,6 @@ export const useUserData = () => {
       case "LOGOUT_USER":
         return {};
 
-      case "ATTEMPTED_QUIZZES_HANDLER":
-        return { ...state, quizzesAttempted: payload };
 
       default:
         return { ...state };

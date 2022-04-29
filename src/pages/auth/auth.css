@@ -7,7 +7,7 @@
   backdrop-filter: blur(2px);
   width: 100vw;
   height: 100vh;
-  z-index: 99999;
+  z-index: var(--z-index-modal);
   position: fixed;
   top: 0;
   justify-content: center;
