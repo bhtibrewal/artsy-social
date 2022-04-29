@@ -3,3 +3,4 @@ export { FaRegUser, FaRegComment, FaRegSmile, FaTelegramPlane, FaHeart, FaRegHea
 export { FiSettings,FiImage } from "react-icons/fi";
 export { HiMenu } from 'react-icons/hi';
 export { MdGif } from 'react-icons/md';
+export {BsBookmark} from 'react-icons/bs';

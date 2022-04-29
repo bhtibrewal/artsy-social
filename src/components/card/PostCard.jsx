@@ -5,6 +5,7 @@ import {
   FaRegHeart,
   FaRegComment,
   FaTelegramPlane,
+  BsBookmark,
 } from "../../assets/icons";
 import { useAuth } from "../../contexts/AuthContext";
 import { likePost } from "../../services";
@@ -19,6 +20,7 @@ export const PostCard = (props) => {
     username,
     likes: { likeCount },
   } = props;
+
   const location = useLocation();
   const navigate = useNavigate();
   const { isUserLoggedIn } = useAuth();
@@ -27,6 +29,7 @@ export const PostCard = (props) => {
       ? likePost({ postId: props._id })
       : navigate("/sign-in", { from: location });
   };
+
   return (
     <div className="card post-card">
       <div className="flex-align-center">
@@ -60,6 +63,9 @@ export const PostCard = (props) => {
         <span className="post-actions-icons">
           <FaTelegramPlane />
         </span>
+        <span className="post-actions-icons">
+          <BsBookmark />
+        </span>
         <p>{likeCount} Likes</p>
         <p> comments</p>
         <p> shares</p>
@@ -69,7 +75,7 @@ export const PostCard = (props) => {
           <div className="avatar avatar-s">
             <img
               src="https://avatars.githubusercontent.com/u/42600164?v=4"
-              alt=""
+              alt="user-avatar"
             />
           </div>
           <input
