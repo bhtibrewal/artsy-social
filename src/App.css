@@ -3,6 +3,7 @@
 @import "./styles/cards.css";
 
 :root {
+  --z-index-modal: 2;
 }
 .body {
   --secondary-color: rgb(35, 35, 37); /* rgb(9, 11, 19) */
@@ -27,8 +28,8 @@
   grid-template-rows: auto 1fr;
   grid-template-columns: auto 1fr;
   grid-template-areas:
-    "aside header header"
-    "aside  main  right-aside";
+    "header header header"
+    "aside main  right-aside";
 }
 .main {
   grid-area: main;
@@ -40,7 +41,7 @@
 .aside {
   grid-area: aside;
 }
-.right-sidebar{
+.right-sidebar {
   grid-area: right-aside;
 }
 @media screen and (max-width: 520px) {
@@ -69,8 +70,11 @@
   background: var(--primary-text);
   border-radius: 1rem;
 }
-input[type="text"],
-input[type="password"] {
+
+/*  */
+
+.artsy-input input[type="text"],
+.artsy-input input[type="password"] {
   background: transparent;
 }
 

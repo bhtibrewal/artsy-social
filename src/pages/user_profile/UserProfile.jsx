@@ -10,21 +10,21 @@ export const UserProfile = () => {
             <FaRegUser />
           </span>
           <span>Followers</span>
-          <p className="body-l primary"> 2000+ </p>
+          <p className="body-l "> 2000+ </p>
         </div>
         <div className="stats-cards following-card">
           <span className="stats-card-icon">
             <FaRegUser />
           </span>
           <span>Following</span>
-          <p className="body-l primary"> 2000+ </p>
+          <p className="body-l"> 2000+ </p>
         </div>
         <div className="stats-cards posts-card">
           <span className="stats-card-icon">
             <FaRegUser />
           </span>
           <span>Posts</span>
-          <p className="body-l primary"> 100 </p>
+          <p className="body-l"> 100 </p>
         </div>
       </section>
     </main>

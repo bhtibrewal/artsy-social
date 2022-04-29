@@ -7,7 +7,6 @@ export const RightSidebar = () => {
   useEffect(() => {
     getUsers({ setUsers });
   }, []);
-  console.log(users);
 
   return (
     <aside className="right-sidebar">
@@ -17,7 +16,7 @@ export const RightSidebar = () => {
         </p>
         {users.map((user) => {
           return (
-            <div>
+            <div key={user._id}>
               <div className="flex-align-center">
                 <div className="avatar avatar-s">
                   <img src={user.profile_pic} alt="avatar" />

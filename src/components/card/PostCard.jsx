@@ -1,18 +1,35 @@
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   FaHeart,
   FaRegHeart,
   FaRegComment,
   FaTelegramPlane,
+  BsBookmark,
 } from "../../assets/icons";
-export const PostCard = ({ post }) => {
-  //   const {
-  //     title,
-  //     content,
-  //     image,
-  //     username,
-  //     user_handle,
-  //     likes: { likeCount },
-  //   } = post;
+import { useAuth } from "../../contexts/AuthContext";
+import { likePost } from "../../services";
+
+export const PostCard = (props) => {
+  const {
+    title,
+    content,
+    image,
+    firstName,
+    lastName,
+    username,
+    likes: { likeCount },
+  } = props;
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { isUserLoggedIn } = useAuth();
+  const likeHandler = () => {
+    isUserLoggedIn
+      ? likePost({ postId: props._id })
+      : navigate("/sign-in", { from: location });
+  };
+
   return (
     <div className="card post-card">
       <div className="flex-align-center">
@@ -20,36 +37,57 @@ export const PostCard = ({ post }) => {
           <img
             src="https://avatars.githubusercontent.com/u/42600164?v=4"
             className="user-img"
-            alt="Bhavika Tibrewal"
-            title="Bhavika Tibrewal"
+            alt={username}
+            title={username}
           />
         </div>
         <div>
-          <p className="user-name">Bhavika Tibrewal</p>
-          <p className="user-handle">@bhtibrewal</p>
+          <p className="user-name">
+            {firstName} {lastName}
+          </p>
+          <p className="user-handle">{username}</p>
         </div>
       </div>
-      <img
-        alt="Focus"
-        src="http://res.cloudinary.com/rohitdhatrak/image/upload/v1643387481/ml4jmfl2vn4p46idm72k.jpg"
-      />
+      {image && <img alt={title} src={image} />}
       <div className="post-content">
-        <p className="body-l">Focus </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
+        <p className="body-l">{title} </p>
+        <p>{content}</p>
       </div>
       <div className="post-actions">
-        <span>
+        <span className="post-actions-icons" onClick={likeHandler}>
           <FaRegHeart />
         </span>
-        <span>
+        <span className="post-actions-icons">
           <FaRegComment />
         </span>
-        <span>
+        <span className="post-actions-icons">
           <FaTelegramPlane />
         </span>
+        <span className="post-actions-icons">
+          <BsBookmark />
+        </span>
+        <p>{likeCount} Likes</p>
+        <p> comments</p>
+        <p> shares</p>
       </div>
+      {
+        <div className="comment-section flex-align-center">
+          <div className="avatar avatar-s">
+            <img
+              src="https://avatars.githubusercontent.com/u/42600164?v=4"
+              alt="user-avatar"
+            />
+          </div>
+          <input
+            type="text"
+            className="comment-input"
+            placeholder="Write comment here..."
+          />
+          <button className="btn post-comment-btn">
+            <FaTelegramPlane />
+          </button>
+        </div>
+      }
     </div>
   );
 };

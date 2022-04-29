@@ -1,15 +1,39 @@
+.post-card {
+  padding-bottom: 2rem;
+}
 .post-content {
   margin: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-.post-card{
-  width: fit-content;
-}
-.post-actions{
+.post-actions {
   display: flex;
+  gap: 2rem;
+  margin: 0 2rem;
+}
+.post-actions-icons{
+  font-size: 1.4em;
+  cursor:pointer;
+}
+.comment-section {
   gap: 1rem;
-  margin:0 2rem 2rem;
-
+  padding: 0 2rem;
+}
+.comment-input {
+  padding: 10px;
+  background: var(--gray-bg);
+  width: 100%;
+  border-radius: 4px;
+  border: 0;
+}
+.comment-input:focus-visible {
+  border: solid var(--primary-color);
+  outline: 0;
+}
+.post-comment-btn {
+  background-color: var(--primary-color);
+  border-radius: 1rem;
+  color: var(--light-text);
+  padding: 1rem;
 }
