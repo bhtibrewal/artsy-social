@@ -5,9 +5,11 @@ export { getPosts } from './posts/getPosts';
 export { likePost } from './posts/likePost';
 export { dislikePost } from './posts/dislikePost';
 export { editPost } from './posts/editPost';
+export { createPost } from './posts/createPost';
 
 /* user */
 export { bookmarkPost } from './user/bookmarkPost';
+export { removeBookmark } from './user/removeBookmark';
 
 
 /* auth */

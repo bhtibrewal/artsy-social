@@ -11,6 +11,7 @@ export const SignIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathName || "/";
+  console.log(location);
   const [error, setSigninError] = useState();
   const [inputValues, setInputValues] = useState({
     username: "",

@@ -3,7 +3,8 @@
 @import "./styles/cards.css";
 
 :root {
-  --z-index-modal: 2;
+  --z-index-modal: 3;
+  --user-dropdown-index: 2
 }
 .body {
   --secondary-color: rgb(35, 35, 37); /* rgb(9, 11, 19) */

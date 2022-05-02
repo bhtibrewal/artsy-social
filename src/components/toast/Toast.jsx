@@ -1,6 +1,12 @@
 import "./toast.css";
-import { useToast } from "../../context";
+import { useToast } from "../../contexts";
 import { useEffect } from "react";
+import {
+  FaInfoCircle,
+  FaExclamationCircle,
+  FaCheckCircle,
+  IoCloseCircleOutline
+} from "../../assets/icons";
 
 export const Toast = ({ position }) => {
   const { toastList, deleteToast } = useToast();
@@ -14,11 +20,11 @@ export const Toast = ({ position }) => {
   const getIcon = (type) => {
     switch (type) {
       case "primary":
-        return "fa-circle-info";
+        return <FaInfoCircle />;
       case "success":
-        return "fa-circle-check";
+        return <FaCheckCircle />;
       case "error":
-        return "fa-circle-exclamation";
+        return <FaExclamationCircle />;
     }
   };
   return (
@@ -27,13 +33,13 @@ export const Toast = ({ position }) => {
         const { title, type, id } = toast;
         return (
           <div key={id} className={`toast toast-${type} `}>
-            <i className={`fa-solid ${getIcon(type)} toast-icon`}></i>
+            <div className={` toast-icon`}>{getIcon(type)}</div>
             <span className="toast-title">{title}</span>
             <button
               className="btn toast-close-btn"
               onClick={() => deleteToast(id)}
             >
-              <i className="fa-solid fa-xmark fa-xl"></i>
+             <IoCloseCircleOutline />
             </button>
           </div>
         );

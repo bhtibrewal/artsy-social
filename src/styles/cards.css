@@ -19,6 +19,7 @@
 .comment-section {
   gap: 1rem;
   padding: 0 2rem;
+  border-top:thin solid;
 }
 .comment-input {
   padding: 10px;

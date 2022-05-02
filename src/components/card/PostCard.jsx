@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   FaHeart,
@@ -6,27 +5,50 @@ import {
   FaRegComment,
   FaTelegramPlane,
   BsBookmark,
+  BsBookmarkFill,
 } from "../../assets/icons";
-import { useAuth } from "../../contexts/AuthContext";
-import { likePost } from "../../services";
+import { useAuth, usePosts, useToast } from "../../contexts";
+import { bookmarkPost, likePost, removeBookmark } from "../../services";
 
 export const PostCard = (props) => {
   const {
+    _id,
     title,
     content,
     image,
     firstName,
     lastName,
     username,
-    likes: { likeCount },
+    likes: { likeCount, likedBy },
   } = props;
 
   const location = useLocation();
   const navigate = useNavigate();
-  const { isUserLoggedIn } = useAuth();
+  const {
+    isUserLoggedIn,
+    userData: { username: likedByUser, bookmarks },
+    userDataDispatch,
+  } = useAuth();
+  const { postsStateDispatch } = usePosts();
+  const { showToast } = useToast();
+console.log(likedBy)
+  const isLiked = likedBy.some((user) => {
+    console.log(user, likedByUser);
+    return user.username === likedByUser;
+  });
+  const isBookmarked = bookmarks?.some((post) => post._id === _id);
+
   const likeHandler = () => {
     isUserLoggedIn
-      ? likePost({ postId: props._id })
+      ? likePost({ postId: _id, postsStateDispatch, showToast })
+      : navigate("/sign-in", { from: location });
+  };
+
+  const bookmarkHandler = () => {
+    isUserLoggedIn
+      ? isBookmarked
+        ? removeBookmark({ postId: _id, userDataDispatch, showToast })
+        : bookmarkPost({ postId: _id, userDataDispatch, showToast })
       : navigate("/sign-in", { from: location });
   };
 
@@ -55,7 +77,7 @@ export const PostCard = (props) => {
       </div>
       <div className="post-actions">
         <span className="post-actions-icons" onClick={likeHandler}>
-          <FaRegHeart />
+          {isLiked ? <FaHeart /> : <FaRegHeart />}
         </span>
         <span className="post-actions-icons">
           <FaRegComment />
@@ -63,31 +85,31 @@ export const PostCard = (props) => {
         <span className="post-actions-icons">
           <FaTelegramPlane />
         </span>
-        <span className="post-actions-icons">
-          <BsBookmark />
+        <span className="post-actions-icons" onClick={bookmarkHandler}>
+          {isBookmarked ? <BsBookmarkFill /> : <BsBookmark />}
         </span>
+
         <p>{likeCount} Likes</p>
         <p> comments</p>
         <p> shares</p>
       </div>
-      {
-        <div className="comment-section flex-align-center">
-          <div className="avatar avatar-s">
-            <img
-              src="https://avatars.githubusercontent.com/u/42600164?v=4"
-              alt="user-avatar"
-            />
-          </div>
-          <input
-            type="text"
-            className="comment-input"
-            placeholder="Write comment here..."
+
+      <div className="comment-section flex-align-center">
+        <div className="avatar avatar-s">
+          <img
+            src="https://avatars.githubusercontent.com/u/42600164?v=4"
+            alt="user-avatar"
           />
-          <button className="btn post-comment-btn">
-            <FaTelegramPlane />
-          </button>
         </div>
-      }
+        <input
+          type="text"
+          className="comment-input"
+          placeholder="Write comment here..."
+        />
+        <button className="btn post-comment-btn">
+          <FaTelegramPlane />
+        </button>
+      </div>
     </div>
   );
 };

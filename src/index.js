@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import { makeServer } from "./server";
 import { BrowserRouter as Router } from 'react-router-dom';
-import { ToastProvider,AuthProvider } from './contexts';
+import { ToastProvider, AuthProvider, PostsProvider } from './contexts';
 
 // Call make Server
 makeServer();
@@ -14,7 +14,9 @@ root.render(
     <Router>
       <ToastProvider>
         <AuthProvider>
-          <App />
+          <PostsProvider>
+            <App />
+          </PostsProvider>
         </AuthProvider>
       </ToastProvider>
     </Router>

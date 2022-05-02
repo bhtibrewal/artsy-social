@@ -1,11 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import "./App.css";
-import { Sidebar, Header, RightSidebar } from "./components";
+import { Sidebar, Header, RightSidebar, Toast } from "./components";
 import { HomePage, SignIn, UserProfile } from "./pages";
 
 function App() {
+
   const [displaySidebar, setDisplaySidebar] = useState(true);
+
   return (
     <div className="body">
       <Header setDisplaySidebar={setDisplaySidebar} />
@@ -16,6 +18,7 @@ function App() {
         <Route path="/user-profile" element={<UserProfile />} />
         <Route path='/sign-in' element={<SignIn/>}/>
       </Routes>
+      <Toast position='bottom-right'/>
     </div>
   );
 }

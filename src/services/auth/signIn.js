@@ -15,17 +15,13 @@ export const signIn = async ({
         if (res.status === 200) {
             const {
                 data: {
-                    foundUser: {
-                        firstName, lastName, email, createdAt, cart, wishlist, addresses
-                    },
+                    foundUser,
                     encodedToken
                 }
             } = res;
             userDataDispatch({
                 type: "LOGIN_USER",
-                payload: {
-                    firstName, lastName, email, createdAt, cart, wishlist, addresses
-                }
+                payload: foundUser
             })
             setIsUserLoggedIn(true);
             axios.defaults.headers.common["authorization"] = encodedToken;
@@ -33,9 +29,9 @@ export const signIn = async ({
             if (keepMeLoggedIn) {
                 localStorage.setItem("token", encodedToken);
                 localStorage.setItem('user', JSON.stringify({
-                    firstName, lastName, email, createdAt, addresses
+                    ...foundUser
                 }))
-            } 
+            }
             navigateBack();
         }
     } catch (e) {
