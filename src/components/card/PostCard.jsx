@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   FaHeart,
   FaRegHeart,
@@ -8,17 +8,27 @@ import {
   BsBookmarkFill,
 } from "../../assets/icons";
 import { useAuth, usePosts, useToast } from "../../contexts";
-import { bookmarkPost, likePost, removeBookmark } from "../../services";
+import {
+  bookmarkPost,
+  likePost,
+  removeBookmark,
+  dislikePost,
+} from "../../services";
+import { CommentSection } from "../comment_section/CommentSection";
+import { UserSection } from "../user_section/UserSection";
 
 export const PostCard = (props) => {
   const {
     _id,
+    id,
     title,
     content,
     image,
     firstName,
     lastName,
     username,
+    profile_pic,
+    comments,
     likes: { likeCount, likedBy },
   } = props;
 
@@ -26,22 +36,23 @@ export const PostCard = (props) => {
   const navigate = useNavigate();
   const {
     isUserLoggedIn,
-    userData: { username: likedByUser, bookmarks },
+    userData: { username: currentUser, bookmarks, profile_pic: currProfilePic },
     userDataDispatch,
   } = useAuth();
   const { postsStateDispatch } = usePosts();
   const { showToast } = useToast();
-console.log(likedBy)
+
   const isLiked = likedBy.some((user) => {
-    console.log(user, likedByUser);
-    return user.username === likedByUser;
+    return user.username === currentUser;
   });
   const isBookmarked = bookmarks?.some((post) => post._id === _id);
 
   const likeHandler = () => {
-    isUserLoggedIn
-      ? likePost({ postId: _id, postsStateDispatch, showToast })
-      : navigate("/sign-in", { from: location });
+    if (isUserLoggedIn)
+      isLiked
+        ? dislikePost({ postId: _id, postsStateDispatch, showToast })
+        : likePost({ postId: _id, postsStateDispatch, showToast });
+    else navigate("/sign-in", { from: location });
   };
 
   const bookmarkHandler = () => {
@@ -54,22 +65,8 @@ console.log(likedBy)
 
   return (
     <div className="card post-card">
-      <div className="flex-align-center">
-        <div className="avatar avatar-s">
-          <img
-            src="https://avatars.githubusercontent.com/u/42600164?v=4"
-            className="user-img"
-            alt={username}
-            title={username}
-          />
-        </div>
-        <div>
-          <p className="user-name">
-            {firstName} {lastName}
-          </p>
-          <p className="user-handle">{username}</p>
-        </div>
-      </div>
+      <UserSection user={{ username, profile_pic, firstName, lastName }} />
+
       {image && <img alt={title} src={image} />}
       <div className="post-content">
         <p className="body-l">{title} </p>
@@ -88,28 +85,16 @@ console.log(likedBy)
         <span className="post-actions-icons" onClick={bookmarkHandler}>
           {isBookmarked ? <BsBookmarkFill /> : <BsBookmark />}
         </span>
-
+        {username === currentUser && <button>delete post</button>}
         <p>{likeCount} Likes</p>
-        <p> comments</p>
+        <Link to={`/post/${id}`}>
+          {" "}
+          <p> {comments.length} comments</p>
+        </Link>
         <p> shares</p>
       </div>
 
-      <div className="comment-section flex-align-center">
-        <div className="avatar avatar-s">
-          <img
-            src="https://avatars.githubusercontent.com/u/42600164?v=4"
-            alt="user-avatar"
-          />
-        </div>
-        <input
-          type="text"
-          className="comment-input"
-          placeholder="Write comment here..."
-        />
-        <button className="btn post-comment-btn">
-          <FaTelegramPlane />
-        </button>
-      </div>
+      <CommentSection _id={_id} currProfilePic={currProfilePic} />
     </div>
   );
 };

@@ -6,6 +6,7 @@ export { likePost } from './posts/likePost';
 export { dislikePost } from './posts/dislikePost';
 export { editPost } from './posts/editPost';
 export { createPost } from './posts/createPost';
+export { addComment } from './posts/addComment';
 
 /* user */
 export { bookmarkPost } from './user/bookmarkPost';

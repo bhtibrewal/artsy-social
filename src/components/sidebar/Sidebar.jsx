@@ -23,7 +23,7 @@ const sidebar = [
 ];
 export const Sidebar = () => {
   return (
-    <aside className={`aside  `}>
+    <aside className={`aside `}>
       {sidebar.map((item) => {
         const { route, name, icon, id } = item;
         return (

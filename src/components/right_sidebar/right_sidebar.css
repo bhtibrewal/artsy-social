@@ -1,8 +1,9 @@
-.sidebar-section{
-    background-color: var(--light-text);
-    padding: 1.5rem;
-    border-radius: 4px;
+.sidebar-section {
+  background-color: var(--light-text);
+  padding: 1.5rem;
+  border-radius: 4px;
 }
-.right-sidebar{
-    padding: 2rem;
+.right-sidebar {
+  padding: 2rem;
 }
+

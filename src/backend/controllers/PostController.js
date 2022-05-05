@@ -295,3 +295,35 @@ export const deletePostHandler = function (schema, request) {
     );
   }
 };
+
+export const addCommentHandler = function (schema, request) {
+  const user = requiresAuth.call(this, request);
+  try {
+    if (!user) {
+      return new Response(
+        404,
+        {},
+        {
+          errors: [
+            "The username you entered is not Registered. Not Found error",
+          ],
+        }
+      );
+    }
+    const { postId } = request.params;
+    const { comment } = JSON.parse(request.requestBody);
+    const post = schema.posts.findBy({ _id: postId }).attrs;
+    post.comments.push({comment, createdAt:formatDate(), username:user.username, profile_pic: user.profile_pic});
+    this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
+    return new Response(201, {}, { posts: this.db.posts });
+  }
+  catch (error) {
+    return new Response(
+      500,
+      {},
+      {
+        error,
+      }
+    );
+  }
+}

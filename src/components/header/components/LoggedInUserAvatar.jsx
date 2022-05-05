@@ -3,14 +3,14 @@ import { useAuth, useToast } from "../../../contexts";
 import { logOut } from "../../../services";
 
 export const LoggedInUserAvatar = () => {
-  const { setIsUserLoggedIn, userDataDispatch } = useAuth();
+  const {userData:{profile_pic}, setIsUserLoggedIn, userDataDispatch } = useAuth();
   const { showToast } = useToast();
 
   return (
     <div className="user">
       <div className="avatar avatar-s">
         <img
-          src="https://media.istockphoto.com/vectors/man-artist-painting-autumn-tree-landscape-in-the-park-isolated-vector-vector-id1058684612?k=20&m=1058684612&s=612x612&w=0&h=edHBtI190lKLq_a0YbCWSliJ_FyHsPcysvOZ6fK_Ap0="
+          src={profile_pic}
           alt="avatar"
         />
       </div>

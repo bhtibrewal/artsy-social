@@ -4,7 +4,8 @@
 
 :root {
   --z-index-modal: 3;
-  --user-dropdown-index: 2
+  --user-dropdown-index: 2;
+  /* --floating-btn-index:  */
 }
 .body {
   --secondary-color: rgb(35, 35, 37); /* rgb(9, 11, 19) */
@@ -122,4 +123,13 @@
   grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   grid-template-rows: 35rem;
   grid-gap: 2rem;
+}
+.floating-button{
+  border-radius: 50%;
+  background:var(--primary-color);
+  display:grid;
+  place-content: center;
+  position:fixed;
+  bottom: 10%;
+  right: 10%;
 }
