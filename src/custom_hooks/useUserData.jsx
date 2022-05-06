@@ -19,7 +19,8 @@ export const useUserData = () => {
         };
       case "LOGOUT_USER":
         return {};
-
+      case 'UPDATE_USER_DATA':
+        return {...state, ...payload}
 
       default:
         return { ...state };
@@ -30,6 +31,5 @@ export const useUserData = () => {
     userDataReducer,
     initialUserData
   );
-  console.log(userData);
   return { isUserLoggedIn, setIsUserLoggedIn, userData, userDataDispatch };
 };

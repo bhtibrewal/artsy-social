@@ -1,5 +1,10 @@
 .post-card {
   padding-bottom: 2rem;
+  margin: 2rem 0;
+}
+.user-section{
+  margin:1rem 0 1rem 2rem;
+  gap: 2rem;
 }
 .post-content {
   margin: 2rem;
@@ -19,6 +24,7 @@
 .comment-section {
   gap: 1rem;
   padding: 0 2rem;
+  border-top:thin solid;
 }
 .comment-input {
   padding: 10px;

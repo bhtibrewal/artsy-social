@@ -1,53 +1,72 @@
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   FaHeart,
   FaRegHeart,
   FaRegComment,
   FaTelegramPlane,
   BsBookmark,
+  BsBookmarkFill,
 } from "../../assets/icons";
-import { useAuth } from "../../contexts/AuthContext";
-import { likePost } from "../../services";
+import { useAuth, usePosts, useToast } from "../../contexts";
+import {
+  bookmarkPost,
+  likePost,
+  removeBookmark,
+  dislikePost,
+} from "../../services";
+import { CommentSection } from "../comment_section/CommentSection";
+import { UserSection } from "../user_section/UserSection";
 
 export const PostCard = (props) => {
   const {
+    _id,
+    id,
     title,
     content,
     image,
     firstName,
     lastName,
     username,
-    likes: { likeCount },
+    profile_pic,
+    comments,
+    likes: { likeCount, likedBy },
   } = props;
 
   const location = useLocation();
   const navigate = useNavigate();
-  const { isUserLoggedIn } = useAuth();
+  const {
+    isUserLoggedIn,
+    userData: { username: currentUser, bookmarks, profile_pic: currProfilePic },
+    userDataDispatch,
+  } = useAuth();
+  const { postsStateDispatch } = usePosts();
+  const { showToast } = useToast();
+
+  const isLiked = likedBy.some((user) => {
+    return user.username === currentUser;
+  });
+  const isBookmarked = bookmarks?.some((post) => post._id === _id);
+
   const likeHandler = () => {
+    if (isUserLoggedIn)
+      isLiked
+        ? dislikePost({ postId: _id, postsStateDispatch, showToast })
+        : likePost({ postId: _id, postsStateDispatch, showToast });
+    else navigate("/sign-in", { from: location });
+  };
+
+  const bookmarkHandler = () => {
     isUserLoggedIn
-      ? likePost({ postId: props._id })
+      ? isBookmarked
+        ? removeBookmark({ postId: _id, userDataDispatch, showToast })
+        : bookmarkPost({ postId: _id, userDataDispatch, showToast })
       : navigate("/sign-in", { from: location });
   };
 
   return (
     <div className="card post-card">
-      <div className="flex-align-center">
-        <div className="avatar avatar-s">
-          <img
-            src="https://avatars.githubusercontent.com/u/42600164?v=4"
-            className="user-img"
-            alt={username}
-            title={username}
-          />
-        </div>
-        <div>
-          <p className="user-name">
-            {firstName} {lastName}
-          </p>
-          <p className="user-handle">{username}</p>
-        </div>
-      </div>
+      <UserSection user={{ username, profile_pic, firstName, lastName }} />
+
       {image && <img alt={title} src={image} />}
       <div className="post-content">
         <p className="body-l">{title} </p>
@@ -55,7 +74,7 @@ export const PostCard = (props) => {
       </div>
       <div className="post-actions">
         <span className="post-actions-icons" onClick={likeHandler}>
-          <FaRegHeart />
+          {isLiked ? <FaHeart /> : <FaRegHeart />}
         </span>
         <span className="post-actions-icons">
           <FaRegComment />
@@ -63,31 +82,19 @@ export const PostCard = (props) => {
         <span className="post-actions-icons">
           <FaTelegramPlane />
         </span>
-        <span className="post-actions-icons">
-          <BsBookmark />
+        <span className="post-actions-icons" onClick={bookmarkHandler}>
+          {isBookmarked ? <BsBookmarkFill /> : <BsBookmark />}
         </span>
+        {username === currentUser && <button>delete post</button>}
         <p>{likeCount} Likes</p>
-        <p> comments</p>
+        <Link to={`/post/${id}`}>
+          {" "}
+          <p> {comments.length} comments</p>
+        </Link>
         <p> shares</p>
       </div>
-      {
-        <div className="comment-section flex-align-center">
-          <div className="avatar avatar-s">
-            <img
-              src="https://avatars.githubusercontent.com/u/42600164?v=4"
-              alt="user-avatar"
-            />
-          </div>
-          <input
-            type="text"
-            className="comment-input"
-            placeholder="Write comment here..."
-          />
-          <button className="btn post-comment-btn">
-            <FaTelegramPlane />
-          </button>
-        </div>
-      }
+
+      <CommentSection _id={_id} currProfilePic={currProfilePic} />
     </div>
   );
 };

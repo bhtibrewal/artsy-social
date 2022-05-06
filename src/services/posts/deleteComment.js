@@ -1,11 +1,11 @@
 import axios from "axios"
 
-export const dislikePost = async ({ postId, postsStateDispatch, showToast }) => {
+export const deleteComment = async ({ postId, commentId, postsStateDispatch, showToast }) => {
     try {
-        const res = await axios.post(`/api/posts/dislike/${postId}`);
+        const res = await axios.delete(`/api/posts/comment/${postId}/${commentId}`);
         if (res.status === 201) {
             postsStateDispatch({ type: "UPDATE_POSTS", payload: res.data.posts });
-            showToast({ title: 'post disliked', type: 'success' });
+            showToast({ title: 'comment deleted', type: 'success' });
         }
     }
     catch (e) {

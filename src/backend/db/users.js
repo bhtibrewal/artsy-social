@@ -24,7 +24,7 @@ export const users = [
     username: "guest_user",
     email: "guest@gmail.com",
     password: "guest@123",
-    profile_pic: "https://avatars.githubusercontent.com/u/42600164?v=4",
+    profile_pic: "https://media.istockphoto.com/vectors/man-artist-painting-autumn-tree-landscape-in-the-park-isolated-vector-vector-id1058684612?k=20&m=1058684612&s=612x612&w=0&h=edHBtI190lKLq_a0YbCWSliJ_FyHsPcysvOZ6fK_Ap0=",
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
