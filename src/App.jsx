@@ -2,7 +2,7 @@ import { Route, Routes, Outlet } from "react-router-dom";
 import { useState } from "react";
 import "./App.css";
 import { Sidebar, Header, RightSidebar, Toast } from "./components";
-import { HomePage, SignIn, SinglePostPage, UserProfile } from "./pages";
+import { HomePage, Page404, SignIn, SinglePostPage, UserProfile } from "./pages";
 const WithSidebar = ({ displaySidebar }) => {
   return (
     <>
@@ -24,6 +24,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/user-profile/:username" element={<UserProfile />} />
         </Route>
+        <Route path='*' element={<Page404/>} />
         <Route path="/post/:postId" element={<SinglePostPage />} />
 
         <Route path="/sign-in" element={<SignIn />} />

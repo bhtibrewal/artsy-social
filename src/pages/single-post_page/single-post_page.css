@@ -1,6 +1,29 @@
-.comments{
-    margin: 2rem auto;
+
+.single-post {
+  display: flex;
+  justify-content: space-evenly;
+  height:100%;
 }
-.comment{
-    
+.image-section {
+  padding: 2rem;
+  height: 100%;
+  background: rgba(14, 14, 14, 0.905);
+}
+.right-section {
+  display: flex;
+  flex-direction: column;
+}
+.comments {
+  margin: 1rem;
+  background: var(--light-text);
+  overflow: auto;
+  flex-grow: 1;
+}
+.comment {
+  display: flex;
+  padding: 1rem;
+}
+.comment-action{
+  background-color:transparent;
+  margin: 1rem;
 }

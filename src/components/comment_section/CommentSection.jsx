@@ -1,18 +1,30 @@
 import React, { useState } from "react";
 import { FaTelegramPlane } from "../../assets/icons";
 import { usePosts, useToast } from "../../contexts";
-import { addComment } from "../../services";
+import { addComment, addReply } from "../../services";
 
 export const CommentSection = (props) => {
-  const { currProfilePic, _id } = props;
+  const { currProfilePic, postId, commentId } = props;
   const { showToast } = useToast();
   const { postsStateDispatch } = usePosts();
 
   const [comment, setComment] = useState("");
 
   const commentHandler = () => {
-    setComment("");
-    addComment({ postId: _id, showToast, postsStateDispatch, comment });
+    if (comment === "") {
+      showToast({ title: "enter comment", type: "error" });
+    } else {
+      setComment("");
+      if (commentId)
+        addReply({
+          postId,
+          commentId,
+          showToast,
+          postsStateDispatch,
+          reply: comment,
+        });
+      else addComment({ postId, showToast, postsStateDispatch, comment });
+    }
   };
   return (
     <div className="comment-section flex-align-center">
@@ -26,7 +38,10 @@ export const CommentSection = (props) => {
         value={comment}
         onChange={(e) => setComment(e.target.value)}
       />
-      <button className="btn post-comment-btn" onClick={commentHandler}>
+      <button
+        className={`btn post-comment-btn ${comment === "" && "disabled-btn"}`}
+        onClick={commentHandler}
+      >
         <FaTelegramPlane />
       </button>
     </div>

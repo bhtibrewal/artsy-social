@@ -46,7 +46,7 @@ export const SignIn = () => {
   };
 
   return (
-    <main className="quiz-main center">
+    <main className="main center">
       <form className="flex-col signup-sec" onSubmit={submitHandler}>
         <p className="body-l">Login to my user account.</p>
 

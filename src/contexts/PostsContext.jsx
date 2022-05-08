@@ -1,9 +1,12 @@
 import { createContext, useReducer, useContext, useEffect } from "react";
 import { getPosts } from "../services";
+import { useToast } from "./ToastContext";
 
 const PostsContext = createContext();
 
 export const PostsProvider = ({ children }) => {
+  
+  const {showToast} = useToast();
   const initialPostsState = [];
   const postsStateReducer = (state, { type, payload }) => {
     switch (type) {
@@ -19,7 +22,7 @@ export const PostsProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    getPosts({ postsStateDispatch });
+    getPosts({ postsStateDispatch, showToast });
   }, []);
 
   return (
