@@ -346,12 +346,10 @@ export const deleteCommentHandler = function (schema, request) {
     }
     const { postId, commentId } = request.params;
     let post = schema.posts.findBy({ _id: postId }).attrs;
-    console.log(post);
     const updatedComments = post.comments.filter(comment=> comment._id !== commentId);
-    console.log(updatedComments);
     post = {...post, comments: updatedComments };
     this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
-    return new Response(201, {}, { posts: this.db.posts });
+    return new Response(200, {}, { posts: this.db.posts });
   }
   catch (error) {
     return new Response(

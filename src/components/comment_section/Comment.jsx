@@ -19,12 +19,12 @@ export const Comment = (props) => {
   } = props;
 
   const [showReplySection, setShowReplySection] = useState(false);
-  const { postStateDispatch } = usePosts();
+  const {postsStateDispatch } = usePosts();
   const { showToast } = useToast();
   const deleteCommentHandler = () => {
-    deleteComment({ postStateDispatch, postId, commentId, showToast });
+    deleteComment({ postsStateDispatch, postId, commentId, showToast });
   };
-  const deleteReplyHandler = () => {};
+  const deleteReplyHandler = (replyId) => {};
 
   return (
     <div className="comment ">
@@ -53,9 +53,9 @@ export const Comment = (props) => {
           />
         )}
         {replies.map(
-          ({ reply, profile_pic, firstName, lastName, username }) => {
+          ({ _id, reply, profile_pic, firstName, lastName, username }) => {
             return (
-              <div className="comment">
+              <div key={_id} className="comment">
                 <div className="avatar avatar-s">
                   <img src={profile_pic} alt={username} />
                 </div>
@@ -66,7 +66,7 @@ export const Comment = (props) => {
                   <p> {reply}</p>
                   <button
                     className="comment-action"
-                    onClick={deleteReplyHandler}
+                    onClick={()=>deleteReplyHandler(_id)}
                   >
                     {" "}
                     Delete
