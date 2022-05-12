@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getUsers } from "../../services";
+import { useToast } from "../../contexts";
+
 import "./right_sidebar.css";
 export const RightSidebar = () => {
   const [users, setUsers] = useState([]);
+    const {showToast} = useToast();
 
   useEffect(() => {
-    getUsers({ setUsers });
+    getUsers({ setUsers, showToast });
   }, []);
 
   return (

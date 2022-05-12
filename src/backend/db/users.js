@@ -28,4 +28,15 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
+  {
+    _id: uuid(),
+    firstName: 'shubham',
+    lastName: 'soni',
+    username: "shubham_soni",
+    email: "Shubhamsoni@gmail.com",
+    password: "Shubham@123",
+    profile_pic: "https://en.pimg.jp/066/175/574/1/66175574.jpg",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+  },
 ];

@@ -1,46 +1,51 @@
-.home-page_main{
-    padding: 0 3rem ;
+.home-page_main {
+  padding: 0 3rem;
 }
 
-.new-post_section{
-    border-radius: 1rem;
-    background-color: var(--light-text);
-    padding: 2rem;
-    margin: 2rem;
+.new-post_section {
+  border-radius: 1rem;
+  background-color: var(--light-text);
+  padding: 2rem;
+  margin: 2rem;
 }
-.new-post_flex{
-    display: flex;
-    margin-bottom: 2rem;
+.new-post_flex {
+  display: flex;
+  margin-bottom: 2rem;
 }
-.post_inputs{
-    flex-grow: 1;
+.post_inputs {
+  flex-grow: 1;
 }
-.new-post_title{
-    border:0;
-    width: 100%;
-    padding: .5rem;
-    font-family: inherit;
-    font-size: 2em;
+.new-post_title {
+  border: 0;
+  width: 100%;
+  padding: 0.5rem;
+  font-family: inherit;
+  font-size: 2em;
 }
-.new-post_content{
-    border:0;
-    width: 100%;
-    min-height: 10rem;
-    padding: .5rem;
-    font-family: inherit;
-    font-size: larger;
+.new-post_content {
+  border: 0;
+  width: 100%;
+  padding: 0.5rem;
+  font-family: inherit;
+  font-size: larger;
+  resize: vertical;
 }
-.new-post_actions{
-    display:flex;
-    justify-content: space-between;
+.new-post_content:focus-visible,
+.new-post_title:focus-visible {
+  border: none;
+  outline: 0;
 }
-.new-post_actions>*{
-    gap: 1.5rem;
+.new-post_actions {
+  display: flex;
+  justify-content: space-between;
 }
-.icons{
-    font-size: 1.4em;
+.new-post_actions > * {
+  gap: 1.5rem;
+}
+.icons {
+  font-size: 1.4em;
 }
 
-.gif-icon{
-    border:solid ;
+.gif-icon {
+  border: solid;
 }

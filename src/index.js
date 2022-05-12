@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import { makeServer } from "./server";
 import { BrowserRouter as Router } from 'react-router-dom';
+import {store} from './redux/store';
+import { Provider } from 'react-redux';
 import { ToastProvider, AuthProvider, PostsProvider } from './contexts';
 
 // Call make Server
@@ -15,7 +17,9 @@ root.render(
       <ToastProvider>
         <AuthProvider>
           <PostsProvider>
-            <App />
+            <Provider store={store}>
+              <App />
+            </Provider>
           </PostsProvider>
         </AuthProvider>
       </ToastProvider>

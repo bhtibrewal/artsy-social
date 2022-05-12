@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   FaHeart,
@@ -14,8 +15,8 @@ import {
   removeBookmark,
   dislikePost,
 } from "../../services";
-import { CommentSection } from "../comment_section/CommentSection";
-import { UserSection } from "../user_section/UserSection";
+import { UserSection, CommentSection } from "../index";
+import { LikedByModal } from "../likedby_modal/LikedByModal";
 
 export const PostCard = (props) => {
   const {
@@ -34,6 +35,7 @@ export const PostCard = (props) => {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const [isLikedByModalVisible, setIsLikedByModalVisible] = useState(false);
   const {
     isUserLoggedIn,
     userData: { username: currentUser, bookmarks, profile_pic: currProfilePic },
@@ -86,14 +88,19 @@ export const PostCard = (props) => {
           {isBookmarked ? <BsBookmarkFill /> : <BsBookmark />}
         </span>
         {username === currentUser && <button>delete post</button>}
-        <p>{likeCount} Likes</p>
+        <p onClick={() => setIsLikedByModalVisible(true)}>{likeCount} Likes</p>
         <Link to={`/post/${id}`}>
           {" "}
           <p> {comments.length} comments</p>
         </Link>
         <p> shares</p>
       </div>
-
+      {isLikedByModalVisible && (
+        <LikedByModal
+          likedBy={likedBy}
+          setIsLikedByModalVisible={setIsLikedByModalVisible}
+        />
+      )}
       <CommentSection _id={_id} currProfilePic={currProfilePic} />
     </div>
   );

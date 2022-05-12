@@ -1,6 +1,6 @@
 .aside {
   padding: 3rem;
-  width: 20rem;
+  min-width: 20rem;
   display: flex;
   flex-direction: column;
 }
