@@ -13,8 +13,10 @@ export { addReply } from './posts/addReply';
 export { bookmarkPost } from './user/bookmarkPost';
 export { removeBookmark } from './user/removeBookmark';
 export { followUser } from './user/followUser';
+export { unfollowUser } from './user/unfollowUser';
 export { getUsers } from './user/getUsers';
 export { getUser } from './user/getUser';
+export { editUser } from './user/editUser';
 
 
 /* auth */

@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 import { FaRegUser } from "../../assets/icons";
 import { useAuth, useToast } from "../../contexts";
 import { Button } from "../../components";
-import { followUser, getUser } from "../../services";
+import { followUser, getUser, unfollowUser } from "../../services";
+import { EditUserModal } from "../../components/edit-user_modal/EditUserModal";
 
 export const UserProfile = () => {
   const { username } = useParams();
@@ -14,6 +15,7 @@ export const UserProfile = () => {
     profile_pic,
     firstName,
     lastName,
+    bio,
     followers = [],
     following = [],
   } = userToShow;
@@ -23,17 +25,23 @@ export const UserProfile = () => {
     userData: { username: currUserName },
     userDataDispatch,
   } = useAuth();
+  const [showEditModal, setShowEditModal] = useState(false);
 
   useEffect(() => {
-    getUser({ username, setUserToShow, showToast });
+    getUser({ username, setUserToShow,userDataDispatch, showToast });
   }, [username]);
-  const followHandler = () => {
-    console.log("clicked");
-    followUser({ followUserId: _id });
-  };
+
   const isFollowedByCurrUser = followers.some(
     (user) => user.username === currUserName
   );
+  const followHandler = () => {
+    isFollowedByCurrUser
+      ? unfollowUser({ unfollowUserId: _id,setUserToShow, userDataDispatch, showToast })
+      : followUser({ followUserId: _id,setUserToShow, userDataDispatch, showToast });
+  };
+  const openEditModal = () => {
+    setShowEditModal(true);
+  };
 
   return (
     <main className="main">
@@ -49,6 +57,7 @@ export const UserProfile = () => {
         <p>
           {firstName} {lastName}
         </p>
+        <p>{bio}</p> 
       </section>
       {username !== currUserName ? (
         <Button
@@ -60,7 +69,16 @@ export const UserProfile = () => {
           {isFollowedByCurrUser ? "Following" : "Follow"}
         </Button>
       ) : (
-        <Button className="outline-btn-primary">Edit Profile</Button>
+        <Button className="outline-btn-primary" onClick={openEditModal}>
+          Edit Profile
+        </Button>
+      )}
+      {showEditModal && (
+        <EditUserModal
+          userToShow={userToShow}
+          setUserToShow={setUserToShow}
+          setShowEditModal={setShowEditModal}
+        />
       )}
       <section className="user-stats">
         <div className="stats-cards followers-card">
