@@ -3,25 +3,40 @@ import { useState, useRef } from "react";
 import { FaRegSmile, MdGif, FiImage } from "../../assets/icons";
 import { Button } from "../../components";
 import { usePosts, useToast, useAuth } from "../../contexts";
-import { createPost } from "../../services";
+import { createPost, editPost } from "../../services";
 
-export const NewPostSection = ({ setIsNewPostSectionVisible }) => {
-  const initialPostData = { title: "", content: "", wordsLeft: 600 };
+export const NewPostSection = ({
+  post,
+  setShowEditPostModal,
+  setIsNewPostSectionVisible,
+}) => {
+  const initialPostData = post
+    ? { ...post }
+    : {
+        title: "",
+        content: "",
+      };
   const [postData, setPostData] = useState(initialPostData);
+  const characterLimit = 600;
   const [selectedImage, setSelectedImage] = useState("");
   const {
     userData: { username, profile_pic },
   } = useAuth();
   const { postsStateDispatch } = usePosts();
   const { showToast } = useToast();
+
   // const addImageInput
   const createNewPostHandler = () => {
     if (postData.title === "" || postData.content === "") {
       showToast({ title: "title and content cannot be empty", type: "error" });
-    } else {
+    } else if (!post) {
       createPost({ postData, postsStateDispatch, showToast });
-      setPostData(initialPostData);
+      setIsNewPostSectionVisible(false);
+    } else {
+      editPost({ postId: post._id, postData, postsStateDispatch, showToast });
+      setShowEditPostModal(false);
     }
+    setPostData(initialPostData);
   };
 
   const uploadImage = async () => {
@@ -95,11 +110,13 @@ export const NewPostSection = ({ setIsNewPostSectionVisible }) => {
             <button onClick={uploadImage}> Upload </button>
           </div>
           <p className="char-count">
-            {postData.wordsLeft - postData.content.length}
+            {characterLimit - postData.content.length}
           </p>
           <Button
             className={` ${
-              postData.title === "" || postData.content === ""
+              postData.title === "" ||
+              postData.content === "" ||
+              postData.content.length > characterLimit
                 ? "disabled-btn"
                 : "btn-primary"
             }`}

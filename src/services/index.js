@@ -4,6 +4,7 @@ export { getPosts } from './posts/getPosts';
 export { likePost } from './posts/likePost';
 export { dislikePost } from './posts/dislikePost';
 export { editPost } from './posts/editPost';
+export { deletePost } from './posts/deletePost';
 export { createPost } from './posts/createPost';
 export { addComment } from './posts/addComment';
 export { deleteComment } from './posts/deleteComment';

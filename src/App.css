@@ -6,6 +6,7 @@
   --z-index-modal: 3;
   --user-dropdown-index: 2;
   --aside-z-index:1;
+  --z-index-dropdown: 1;
   /* --floating-btn-index:  */
 }
 .body {
@@ -79,6 +80,12 @@
 .artsy-input input[type="text"],
 .artsy-input input[type="password"] {
   background: transparent;
+}
+.artsy-input.icon-input .icon{
+  position: absolute;
+  font-size: 1.5rem;
+  top: 1.5rem;
+  left: 1rem;
 }
 
 /* utils */

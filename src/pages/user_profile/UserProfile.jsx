@@ -1,11 +1,11 @@
 import "./user_profile.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { FaRegUser } from "../../assets/icons";
-import { useAuth, useToast } from "../../contexts";
-import { Button } from "../../components";
+import { useAuth, useToast, usePosts } from "../../contexts";
+import { Button, PostCard } from "../../components";
 import { followUser, getUser, unfollowUser } from "../../services";
 import { EditUserModal } from "../../components/edit-user_modal/EditUserModal";
+import { UserStats } from "./components/UserStats";
 
 export const UserProfile = () => {
   const { username } = useParams();
@@ -25,10 +25,11 @@ export const UserProfile = () => {
     userData: { username: currUserName },
     userDataDispatch,
   } = useAuth();
+  const { postsState } = usePosts();
   const [showEditModal, setShowEditModal] = useState(false);
 
   useEffect(() => {
-    getUser({ username, setUserToShow,userDataDispatch, showToast });
+    getUser({ username, setUserToShow, userDataDispatch, showToast });
   }, [username]);
 
   const isFollowedByCurrUser = followers.some(
@@ -36,8 +37,18 @@ export const UserProfile = () => {
   );
   const followHandler = () => {
     isFollowedByCurrUser
-      ? unfollowUser({ unfollowUserId: _id,setUserToShow, userDataDispatch, showToast })
-      : followUser({ followUserId: _id,setUserToShow, userDataDispatch, showToast });
+      ? unfollowUser({
+          unfollowUserId: _id,
+          setUserToShow,
+          userDataDispatch,
+          showToast,
+        })
+      : followUser({
+          followUserId: _id,
+          setUserToShow,
+          userDataDispatch,
+          showToast,
+        });
   };
   const openEditModal = () => {
     setShowEditModal(true);
@@ -45,7 +56,7 @@ export const UserProfile = () => {
 
   return (
     <main className="main">
-      <section>
+      <section className="user-info">
         <div className="avatar avatar-s">
           <img
             src={profile_pic}
@@ -57,22 +68,23 @@ export const UserProfile = () => {
         <p>
           {firstName} {lastName}
         </p>
-        <p>{bio}</p> 
+        <p>{bio}</p>
+        {username !== currUserName ? (
+          <Button
+            className={
+              isFollowedByCurrUser ? "outline-btn-primary" : "btn-primary"
+            }
+            onClick={followHandler}
+          >
+            {isFollowedByCurrUser ? "Following" : "Follow"}
+          </Button>
+        ) : (
+          <Button className="outline-btn-primary" onClick={openEditModal}>
+            Edit Profile
+          </Button>
+        )}
       </section>
-      {username !== currUserName ? (
-        <Button
-          className={
-            isFollowedByCurrUser ? "outline-btn-primary" : "btn-primary"
-          }
-          onClick={followHandler}
-        >
-          {isFollowedByCurrUser ? "Following" : "Follow"}
-        </Button>
-      ) : (
-        <Button className="outline-btn-primary" onClick={openEditModal}>
-          Edit Profile
-        </Button>
-      )}
+
       {showEditModal && (
         <EditUserModal
           userToShow={userToShow}
@@ -80,29 +92,15 @@ export const UserProfile = () => {
           setShowEditModal={setShowEditModal}
         />
       )}
-      <section className="user-stats">
-        <div className="stats-cards followers-card">
-          <span className="stats-card-icon">
-            <FaRegUser />
-          </span>
-          <span>Followers</span>
-          <p className="body-l "> {followers?.length}+ </p>
-        </div>
-        <div className="stats-cards following-card">
-          <span className="stats-card-icon">
-            <FaRegUser />
-          </span>
-          <span>Following</span>
-          <p className="body-l"> {following?.length}+ </p>
-        </div>
-        <div className="stats-cards posts-card">
-          <span className="stats-card-icon">
-            <FaRegUser />
-          </span>
-          <span>Posts</span>
-          <p className="body-l"> 100 </p>
-        </div>
-      </section>
+      <UserStats
+        followersCount={followers?.length}
+        followingCount={following?.length}
+      />
+      {postsState
+        .filter((post) => post.username === "bhtibrewal")
+        .map((post) => (
+          <PostCard key={post._id} {...post} />
+        ))}
     </main>
   );
 };

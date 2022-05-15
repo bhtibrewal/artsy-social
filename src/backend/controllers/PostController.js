@@ -284,7 +284,7 @@ export const deletePostHandler = function (schema, request) {
       );
     }
     this.db.posts.remove({ _id: postId });
-    return new Response(201, {}, { posts: this.db.posts });
+    return new Response(200, {}, { posts: this.db.posts });
   } catch (error) {
     return new Response(
       500,
@@ -346,8 +346,8 @@ export const deleteCommentHandler = function (schema, request) {
     }
     const { postId, commentId } = request.params;
     let post = schema.posts.findBy({ _id: postId }).attrs;
-    const updatedComments = post.comments.filter(comment=> comment._id !== commentId);
-    post = {...post, comments: updatedComments };
+    const updatedComments = post.comments.filter(comment => comment._id !== commentId);
+    post = { ...post, comments: updatedComments };
     this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
     return new Response(200, {}, { posts: this.db.posts });
   }
@@ -379,8 +379,8 @@ export const addReplyHandler = function (schema, request) {
     const { postId, commentId } = request.params;
     const { reply } = JSON.parse(request.requestBody);
     const post = schema.posts.findBy({ _id: postId }).attrs;
-    const comment = post.comments.find(comment=> comment._id === commentId);
-    
+    const comment = post.comments.find(comment => comment._id === commentId);
+
     comment.replies.push({ _id: uuid(), reply, createdAt: formatDate(), firstName: user.firstName, lastName: user.lastName, username: user.username, profile_pic: user.profile_pic });
     this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
     return new Response(201, {}, { posts: this.db.posts });

@@ -1,28 +1,27 @@
 import { Link } from "react-router-dom";
 import { useAuth, useToast } from "../../../contexts";
 import { logOut } from "../../../services";
+import { FaAngleRight } from "../../../assets/icons";
 
 export const LoggedInUserAvatar = () => {
-  const {userData:{profile_pic}, setIsUserLoggedIn, userDataDispatch } = useAuth();
+  const {
+    userData: { profile_pic, username },
+    setIsUserLoggedIn,
+    userDataDispatch,
+  } = useAuth();
   const { showToast } = useToast();
 
   return (
     <div className="user">
       <div className="avatar avatar-s">
-        <img
-          src={profile_pic}
-          alt="avatar"
-        />
+        <img src={profile_pic} alt="avatar" />
       </div>
       <div className="user-dropdown flex-col">
-        <Link to="/user-profile" className="flex-align-center">
+        <Link to={`/user-profile/${username}`} className="flex-align-center">
           <span>My Account</span>
-          <i className="fa-solid fa-angle-right"></i>
+          <FaAngleRight />
         </Link>
-        <div className="flex-align-center">
-          <span>My offers</span>
-          <i className="fa-solid fa-angle-right"></i>
-        </div>
+
         <div
           className="flex-align-center"
           onClick={() =>
@@ -34,7 +33,7 @@ export const LoggedInUserAvatar = () => {
           }
         >
           <span>Logout</span>
-          <i className="fa-solid fa-angle-right"></i>
+          <FaAngleRight />
         </div>
       </div>
     </div>

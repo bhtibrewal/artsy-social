@@ -7,6 +7,9 @@ import {
   FaTelegramPlane,
   BsBookmark,
   BsBookmarkFill,
+  BsThreeDotsVertical,
+  FiEdit,
+  FiDelete,
 } from "../../assets/icons";
 import { useAuth, usePosts, useToast } from "../../contexts";
 import {
@@ -14,7 +17,10 @@ import {
   likePost,
   removeBookmark,
   dislikePost,
+  editPost,
+  deletePost,
 } from "../../services";
+import { NewPostSection } from "../create_new_post/NewPostSection";
 import { UserSection, CommentSection } from "../index";
 import { LikedByModal } from "../likedby_modal/LikedByModal";
 
@@ -36,6 +42,9 @@ export const PostCard = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isLikedByModalVisible, setIsLikedByModalVisible] = useState(false);
+  const [showPostMenuDropdown, setShowPostMenuDropdown] = useState(false);
+  const [showEditPostModal, setShowEditPostModal] = useState(false);
+
   const {
     isUserLoggedIn,
     userData: { username: currentUser, bookmarks, profile_pic: currProfilePic },
@@ -64,12 +73,46 @@ export const PostCard = (props) => {
         : bookmarkPost({ postId: _id, userDataDispatch, showToast })
       : navigate("/sign-in", { from: location });
   };
+  const editPostHandler = () => {
+    setShowEditPostModal(true);
+  };
 
   return (
     <div className="card post-card">
-      <UserSection user={{ username, profile_pic, firstName, lastName }} />
-
-      {image && <img alt={title} src={image} />}
+      <div className="flex-align-center">
+        <UserSection user={{ username, profile_pic, firstName, lastName }} />
+        <div className="post-menu">
+          {username === currentUser ? (
+            <button
+              className="post-menu-btn"
+              onClick={() => setShowPostMenuDropdown((prev) => !prev)}
+            >
+              <BsThreeDotsVertical />
+            </button>
+          ) : (
+            <span className="post-actions-icons" onClick={bookmarkHandler}>
+              {isBookmarked ? <BsBookmarkFill /> : <BsBookmark />}
+            </span>
+          )}
+          {showPostMenuDropdown && (
+            <div className="dropdown">
+              <p onClick={() => editPostHandler()}>
+                <FiEdit />
+                Edit
+              </p>
+              <p
+                onClick={() =>
+                  deletePost({ postId: _id, postsStateDispatch, showToast })
+                }
+              >
+                <FiDelete />
+                Delete
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+      <Link to={`/post/${id}`}>{image && <img alt={title} src={image} />}</Link>
       <div className="post-content">
         <p className="body-l">{title} </p>
         <p>{content}</p>
@@ -84,24 +127,34 @@ export const PostCard = (props) => {
         <span className="post-actions-icons">
           <FaTelegramPlane />
         </span>
-        <span className="post-actions-icons" onClick={bookmarkHandler}>
-          {isBookmarked ? <BsBookmarkFill /> : <BsBookmark />}
-        </span>
-        {username === currentUser && <button>delete post</button>}
-        <p onClick={() => setIsLikedByModalVisible(true)}>{likeCount} Likes</p>
+
+        <p
+          className="likes-count"
+          onClick={() => likeCount && setIsLikedByModalVisible(true)}
+        >
+          {likeCount} Likes
+        </p>
         <Link to={`/post/${id}`}>
           {" "}
           <p> {comments.length} comments</p>
         </Link>
-        <p> shares</p>
       </div>
+
+      <CommentSection postId={_id} currProfilePic={currProfilePic} />
+
+      {/* modals */}
       {isLikedByModalVisible && (
         <LikedByModal
           likedBy={likedBy}
           setIsLikedByModalVisible={setIsLikedByModalVisible}
         />
       )}
-      <CommentSection _id={_id} currProfilePic={currProfilePic} />
+      {showEditPostModal && (
+        <NewPostSection
+          post={props}
+          setShowEditPostModal={setShowEditPostModal}
+        />
+      )}
     </div>
   );
 };
