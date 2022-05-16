@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   FaHeart,
@@ -11,18 +12,18 @@ import {
   FiEdit,
   FiDelete,
 } from "../../assets/icons";
-import { useAuth, usePosts, useToast } from "../../contexts";
+import { useAuth, useToast } from "../../contexts";
 import {
   bookmarkPost,
   likePost,
   removeBookmark,
   dislikePost,
-  editPost,
   deletePost,
 } from "../../services";
 import { NewPostSection } from "../create_new_post/NewPostSection";
 import { UserSection, CommentSection } from "../index";
 import { LikedByModal } from "../likedby_modal/LikedByModal";
+import { updatePosts } from "../../redux/reducers/postsSlice";
 
 export const PostCard = (props) => {
   const {
@@ -50,7 +51,7 @@ export const PostCard = (props) => {
     userData: { username: currentUser, bookmarks, profile_pic: currProfilePic },
     userDataDispatch,
   } = useAuth();
-  const { postsStateDispatch } = usePosts();
+  const dispatch = useDispatch();
   const { showToast } = useToast();
 
   const isLiked = likedBy.some((user) => {
@@ -61,8 +62,8 @@ export const PostCard = (props) => {
   const likeHandler = () => {
     if (isUserLoggedIn)
       isLiked
-        ? dislikePost({ postId: _id, postsStateDispatch, showToast })
-        : likePost({ postId: _id, postsStateDispatch, showToast });
+        ? dislikePost({ postId: _id, dispatch, updatePosts, showToast })
+        : likePost({ postId: _id, dispatch, updatePosts, showToast });
     else navigate("/sign-in", { from: location });
   };
 
@@ -102,7 +103,7 @@ export const PostCard = (props) => {
               </p>
               <p
                 onClick={() =>
-                  deletePost({ postId: _id, postsStateDispatch, showToast })
+                  deletePost({ postId: _id, dispatch, updatePosts, showToast })
                 }
               >
                 <FiDelete />

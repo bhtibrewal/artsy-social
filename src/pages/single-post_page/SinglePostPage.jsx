@@ -1,7 +1,8 @@
 import "./single-post_page.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useAuth, usePosts } from "../../contexts";
+import { useAuth, } from "../../contexts";
+import {useSelector} from 'react-redux';
 import { Comment, CommentSection, Loader, UserSection } from "../../components";
 
 export const SinglePostPage = () => {
@@ -19,15 +20,16 @@ export const SinglePostPage = () => {
     likes: { likeCount, likedBy } = {},
   } = post;
   const { postId } = useParams();
-  const { postsState } = usePosts();
+  const { posts } = useSelector((state) => state.posts);
+
   const {
     userData: { profile_pic: currProfilePic },
   } = useAuth();
 
   useEffect(() => {
-    const foundPost = postsState?.find((post) => post.id === postId);
+    const foundPost = posts?.find((post) => post.id === postId);
     if (foundPost) setPost(foundPost);
-  }, [postsState]);
+  }, [posts]);
 
   if (Object.values(post).length === 0) return <Loader />;
 

@@ -1,7 +1,8 @@
 import "./user_profile.css";
 import { useEffect, useState } from "react";
+import {useSelector} from 'react-redux'
 import { useParams } from "react-router-dom";
-import { useAuth, useToast, usePosts } from "../../contexts";
+import { useAuth, useToast } from "../../contexts";
 import { Button, PostCard } from "../../components";
 import { followUser, getUser, unfollowUser } from "../../services";
 import { EditUserModal } from "../../components/edit-user_modal/EditUserModal";
@@ -25,7 +26,7 @@ export const UserProfile = () => {
     userData: { username: currUserName },
     userDataDispatch,
   } = useAuth();
-  const { postsState } = usePosts();
+  const {posts} = useSelector(state=> state.posts)
   const [showEditModal, setShowEditModal] = useState(false);
 
   useEffect(() => {
@@ -96,7 +97,7 @@ export const UserProfile = () => {
         followersCount={followers?.length}
         followingCount={following?.length}
       />
-      {postsState
+      {posts
         .filter((post) => post.username === "bhtibrewal")
         .map((post) => (
           <PostCard key={post._id} {...post} />

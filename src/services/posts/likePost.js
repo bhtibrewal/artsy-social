@@ -1,11 +1,10 @@
 import axios from "axios"
 
-export const likePost = async ({ postId, postsStateDispatch, showToast }) => {
+export const likePost = async ({ postId, dispatch, updatePosts, showToast }) => {
     try {
         const res = await axios.post(`/api/posts/like/${postId}`);
-        console.log(res)
         if (res.status === 201) {
-            postsStateDispatch({ type: "UPDATE_POSTS", payload: res.data.posts });
+            dispatch(updatePosts(res.data.posts));
             showToast({ title: 'post liked', type: 'success' });
         }
     }

@@ -1,24 +1,33 @@
 import "./home_page.css";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { FloatingNewPostButton, Loader, PostCard } from "../../components";
-import { usePosts } from "../../contexts";
 import { FaAngleDown } from "../../assets/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { loadPosts } from "../../redux/reducers/postsSlice";
 
 export const HomePage = () => {
-  const { postsState } = usePosts();
+  const { status, posts } = useSelector((state) => state.posts);
+  const dispatch = useDispatch();
+
   const [sortBy, setSortBy] = useState("latest");
   const [showSortByDropdown, setShowSortByDropdown] = useState(false);
 
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(loadPosts());
+    }
+  });
   // sort By latest first or oldest first
   const latestFirst = (a, b) => new Date(a.createdAt) - new Date(b.createdAt);
   const oldestFirst = (a, b) => new Date(b.createdAt) - new Date(a.createdAt);
+
   const postsList = useMemo(() => {
-    return [...postsState].sort(
+    return [...posts].sort(
       sortBy === "latest" ? latestFirst : oldestFirst
     );
-  }, [sortBy, postsState]);
+  }, [sortBy, posts]);
 
-  if (postsState?.length === 0) return <Loader />;
+  if (posts?.length === 0) return <Loader />;
   return (
     <>
       <FloatingNewPostButton />

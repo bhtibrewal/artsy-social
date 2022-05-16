@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { FaTelegramPlane } from "../../assets/icons";
-import { usePosts, useToast } from "../../contexts";
+import { useToast } from "../../contexts";
 import { addComment, addReply } from "../../services";
+import { updatePosts } from "../../redux/reducers/postsSlice";
 
 export const CommentSection = (props) => {
   const { currProfilePic, postId, commentId } = props;
   const { showToast } = useToast();
-  const { postsStateDispatch } = usePosts();
+  const dispatch = useDispatch();
 
   const [comment, setComment] = useState("");
 
@@ -20,10 +22,11 @@ export const CommentSection = (props) => {
           postId,
           commentId,
           showToast,
-          postsStateDispatch,
+          dispatch,
+          updatePosts,
           reply: comment,
         });
-      else addComment({ postId, showToast, postsStateDispatch, comment });
+      else addComment({ postId, showToast, dispatch, updatePosts, comment });
     }
   };
   return (

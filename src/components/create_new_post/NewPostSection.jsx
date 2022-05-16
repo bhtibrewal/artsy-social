@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { FaRegSmile, MdGif, FiImage } from "../../assets/icons";
 import { Button } from "../../components";
-import { usePosts, useToast, useAuth } from "../../contexts";
+import { useToast, useAuth } from "../../contexts";
 import { createPost, editPost } from "../../services";
+import { updatePosts } from "../../redux/reducers/postsSlice";
 
 export const NewPostSection = ({
   post,
@@ -22,7 +24,7 @@ export const NewPostSection = ({
   const {
     userData: { username, profile_pic },
   } = useAuth();
-  const { postsStateDispatch } = usePosts();
+  const dispatch = useDispatch();
   const { showToast } = useToast();
 
   // const addImageInput
@@ -30,10 +32,16 @@ export const NewPostSection = ({
     if (postData.title === "" || postData.content === "") {
       showToast({ title: "title and content cannot be empty", type: "error" });
     } else if (!post) {
-      createPost({ postData, postsStateDispatch, showToast });
+      createPost({ postData, dispatch, updatePosts, showToast });
       setIsNewPostSectionVisible(false);
     } else {
-      editPost({ postId: post._id, postData, postsStateDispatch, showToast });
+      editPost({
+        postId: post._id,
+        postData,
+        dispatch,
+        updatePosts,
+        showToast,
+      });
       setShowEditPostModal(false);
     }
     setPostData(initialPostData);

@@ -1,11 +1,10 @@
 import axios from "axios"
 
-export const deleteComment = async ({ postId, commentId, postsStateDispatch, showToast }) => {
+export const deleteComment = async ({ postId, commentId, dispatch, updatePosts, showToast }) => {
     try {
-        console.log(postId, commentId, )
         const res = await axios.delete(`/api/posts/comments/${postId}/${commentId}`);
         if (res.status === 200) {
-            postsStateDispatch({ type: "UPDATE_POSTS", payload: res.data.posts });
+            dispatch(updatePosts(res.data.posts));
             showToast({ title: 'comment deleted', type: 'success' });
         }
     }
