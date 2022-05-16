@@ -49,8 +49,24 @@ export const posts = [
     firstName: 'shubham',
     lastName: 'soni',
     username: "shubham_soni",
-    porofile_pic: "https://en.pimg.jp/066/175/574/1/66175574.jpg",
+    profile_pic: "https://en.pimg.jp/066/175/574/1/66175574.jpg",
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
+  {
+    _id: uuid(),
+    title: 'dummy post',
+    content: 'dummy content',
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    comments: [],
+    firstName: "Guest",
+    lastName: "User",
+    username: "guest_user",
+    profile_pic: "https://media.istockphoto.com/vectors/man-artist-painting-autumn-tree-landscape-in-the-park-isolated-vector-vector-id1058684612?k=20&m=1058684612&s=612x612&w=0&h=edHBtI190lKLq_a0YbCWSliJ_FyHsPcysvOZ6fK_Ap0=",
+    
+  }
 ];

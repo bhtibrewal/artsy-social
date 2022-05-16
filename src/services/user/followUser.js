@@ -1,10 +1,12 @@
 import axios from "axios"
 
-export const followUser = async ({ followUserId, userDataDispatch, showToast }) => {
+export const followUser = async ({ followUserId, setUserToShow, userDataDispatch, showToast }) => {
     try {
-        console.log(followUserId);
         const res = await axios.post(`/api/users/follow/${followUserId}`);
-        console.log(res);  
+        if (res.status === 200) {
+            setUserToShow(res.data.followUser);
+            userDataDispatch({ type: 'UPDATE_USER_DATA', payload: res.data.user })
+        }
     }
     catch (e) {
         showToast({ title: e.response.data, type: 'error' })

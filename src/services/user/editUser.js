@@ -1,10 +1,16 @@
 import axios from "axios"
 
-export const editUser = async()=>{
-    try{
-        const res = await axios.post(`/api/users/edit`, )
+export const editUser = async ({ userData, userDataDispatch, setUserToShow, showToast }) => {
+    try {
+        const res = await axios.post(`/api/users/edit`, { userData });
+        if (res.status === 201) {
+            setUserToShow(res.data.user);
+            userDataDispatch({ type: 'UPDATE_USER_DATA', payload: res.data.user })
+            showToast({ title: 'user data updated', type: 'success' });
+        }
     }
-    catch{
-
+    catch (e) {
+        console.log(e);
+        showToast({ title: e?.response?.data?.errors, type: 'error' });
     }
 }

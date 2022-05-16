@@ -11,6 +11,7 @@ export { PasswordInput } from './input/PasswordInput';
 
 export { UserSection } from './user_section/UserSection';
 export { CommentSection } from './comment_section/CommentSection';
-export {Comment} from './comment_section/Comment'
+export {Comment} from './comment_section/Comment';
+export {EditUserModal} from './edit-user_modal/EditUserModal';
 export { Loader } from './loader/Loader';
 export { Toast } from './toast/Toast';
