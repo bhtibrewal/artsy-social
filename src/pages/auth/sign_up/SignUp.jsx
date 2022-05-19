@@ -11,10 +11,11 @@ export const SignUp = () => {
   const [inputValues, setInputValues] = useState({
     firstName: "",
     lastName: "",
+    username: "",
     email: "",
     password: "",
   });
-  const { firstName, lastName, email, password } = inputValues;
+  const { firstName, lastName, username, email, password } = inputValues;
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
   /* email and password validation */
@@ -26,7 +27,13 @@ export const SignUp = () => {
   const validEmail = emailPattern.test(email);
 
   const canSubmit = () => {
-    return firstName !== "" && lastName !== "" && validEmail && validPassword;
+    return (
+      firstName !== "" &&
+      lastName !== "" &&
+      username !== "" &&
+      validEmail &&
+      validPassword
+    );
   };
   /* if agree to terms and can submit then set disabled false */
   const isDisabled = () => !(agreeToTerms && canSubmit());
@@ -65,6 +72,13 @@ export const SignUp = () => {
             setInputValues({ ...inputValues, lastName: e.target.value })
           }
           label={"Last Name"}
+        />
+        <InputField
+          value={username}
+          onChange={(e) =>
+            setInputValues({ ...inputValues, username: e.target.value })
+          }
+          label={"username"}
         />
         <InputField
           value={email}
