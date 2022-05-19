@@ -17,6 +17,7 @@ export const users = [
     bio: "Frontend Develepor | 3D Motion Graphic Designer | Learning New Things Everyday ",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    website: "twitter.com/bhtibrewal"
   },
   {
     _id: uuid(),
@@ -43,4 +44,3 @@ export const users = [
     updatedAt: formatDate(),
   },
 ];
-  

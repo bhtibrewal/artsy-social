@@ -57,7 +57,7 @@ export const PostCard = (props) => {
   const isLiked = likedBy.some((user) => {
     return user.username === currentUser;
   });
-  const isBookmarked = bookmarks?.some((post) => post._id === _id);
+  const isBookmarked = bookmarks?.includes(_id);
 
   const likeHandler = () => {
     if (isUserLoggedIn)
@@ -97,11 +97,15 @@ export const PostCard = (props) => {
           )}
           {showPostMenuDropdown && (
             <div className="dropdown">
-              <p onClick={() => editPostHandler()}>
+              <p
+                className="flex-align-center"
+                onClick={() => editPostHandler()}
+              >
                 <FiEdit />
                 Edit
               </p>
               <p
+                className="flex-align-center"
                 onClick={() =>
                   deletePost({ postId: _id, dispatch, updatePosts, showToast })
                 }

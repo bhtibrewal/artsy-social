@@ -1,5 +1,8 @@
-.user-info{
-margin: 2rem;
+.user-page_main {
+  padding-inline: 2rem;
+}
+.user-info {
+  margin: 2rem;
 }
 .user-stats {
   display: grid;
@@ -26,4 +29,15 @@ margin: 2rem;
 .posts-card {
   background-color: var(--danger-bg);
   color: var(--danger-text);
+}
+.tabs {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  /* border-bottom: thin solid var(--secondary-color); */
+}
+
+.tabs .active {
+  border-radius: 0;
+  border-bottom: solid var(--primary-color);
 }

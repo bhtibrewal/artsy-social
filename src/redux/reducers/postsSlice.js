@@ -21,7 +21,6 @@ const postSlice = createSlice({
             state.status = 'loading';
         },
         [loadPosts.fulfilled]: (state, action) => {
-            console.log("enter in fulfilled", action.payload);
             state.status = 'fulfilled';
             state.posts = action.payload;
         }

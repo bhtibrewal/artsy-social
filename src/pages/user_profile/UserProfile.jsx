@@ -1,6 +1,6 @@
 import "./user_profile.css";
 import { useEffect, useState } from "react";
-import {useSelector} from 'react-redux'
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useAuth, useToast } from "../../contexts";
 import { Button, PostCard } from "../../components";
@@ -19,6 +19,8 @@ export const UserProfile = () => {
     bio,
     followers = [],
     following = [],
+    website,
+    bookmarks,
   } = userToShow;
 
   const { showToast } = useToast();
@@ -26,8 +28,9 @@ export const UserProfile = () => {
     userData: { username: currUserName },
     userDataDispatch,
   } = useAuth();
-  const {posts} = useSelector(state=> state.posts)
+  const { posts } = useSelector((state) => state.posts);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showTab, setShowTab] = useState("posts");
 
   useEffect(() => {
     getUser({ username, setUserToShow, userDataDispatch, showToast });
@@ -56,7 +59,7 @@ export const UserProfile = () => {
   };
 
   return (
-    <main className="main">
+    <main className="main user-page_main ">
       <section className="user-info">
         <div className="avatar avatar-s">
           <img
@@ -70,6 +73,7 @@ export const UserProfile = () => {
           {firstName} {lastName}
         </p>
         <p>{bio}</p>
+        <p>{website}</p>
         {username !== currUserName ? (
           <Button
             className={
@@ -97,11 +101,59 @@ export const UserProfile = () => {
         followersCount={followers?.length}
         followingCount={following?.length}
       />
-      {posts
-        .filter((post) => post.username === "bhtibrewal")
-        .map((post) => (
-          <PostCard key={post._id} {...post} />
-        ))}
+      <div className="tabs">
+        <Button
+          className={showTab === "posts" ? "active" : ""}
+          onClick={() => setShowTab("posts")}
+        >
+          Posts
+        </Button>
+        <Button
+          className={showTab === "bookmarks" ? "active" : ""}
+          onClick={() => setShowTab("bookmarks")}
+        >
+          {" "}
+          Bookmarks
+        </Button>
+        <Button
+          className={showTab === "likes" ? "active" : ""}
+          onClick={() => setShowTab("likes")}
+        >
+          {" "}
+          Likes
+        </Button>
+      </div>
+      {showTab === "posts" && (
+        <div>
+          {posts
+            .filter((post) => post.username === username)
+            .map((post) => (
+              <PostCard key={post._id} {...post} />
+            ))}
+        </div>
+      )}
+      {showTab === "bookmarks" && (
+        <div>
+          {posts
+            .filter((post) =>
+              bookmarks.some((currPostId) => currPostId === post._id)
+            )
+            .map((post) => (
+              <PostCard key={post._id} {...post} />
+            ))}
+        </div>
+      )}
+      {showTab === "likes" && (
+        <div>
+          {posts
+            .filter((post) =>
+              post.likes?.likedBy?.some((user) => user.username === username)
+            )
+            .map((post) => (
+              <PostCard key={post._id} {...post} />
+            ))}
+        </div>
+      )}
     </main>
   );
 };

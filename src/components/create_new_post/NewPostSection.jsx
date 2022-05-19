@@ -17,19 +17,55 @@ export const NewPostSection = ({
     : {
         title: "",
         content: "",
+        image: "",
       };
+  const [loading, setLoading] = useState(false);
   const [postData, setPostData] = useState(initialPostData);
   const characterLimit = 600;
   const [selectedImage, setSelectedImage] = useState("");
+  const [previewSource, setPreviewSource] = useState();
   const {
     userData: { username, profile_pic },
   } = useAuth();
+
   const dispatch = useDispatch();
   const { showToast } = useToast();
 
-  // const addImageInput
+  const handleInputChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedImage(file);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+  };
+
+  const uploadImage = async () => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("file", selectedImage);
+    formData.append("upload_preset", "eko42n5k");
+    delete axios.defaults.headers.common["authorization"];
+
+    fetch("https://api.cloudinary.com/v1_1/bhtibrewal-cloud/image/upload", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setLoading(false);
+        setPostData((prev) => ({ ...prev, image: res?.secure_url }));
+        showToast({ title: "Image Uploaded", type: "success" });
+      })
+      .catch((err) => console.log(err));
+
+    axios.defaults.headers.common["authorization"] =
+      localStorage.getItem("token");
+  };
   const createNewPostHandler = () => {
     if (postData.title === "" || postData.content === "") {
+      console.log(postData);
       showToast({ title: "title and content cannot be empty", type: "error" });
     } else if (!post) {
       createPost({ postData, dispatch, updatePosts, showToast });
@@ -47,21 +83,6 @@ export const NewPostSection = ({
     setPostData(initialPostData);
   };
 
-  const uploadImage = async () => {
-    const formData = new FormData();
-    formData.append("file", selectedImage);
-    formData.append("upload_preset", "eko42n5k");
-    console.log(selectedImage, formData);
-    try {
-      const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/bhtibrewal-cloud/image/upload",
-        formData
-      );
-      console.log(res);
-    } catch (e) {
-      console.log(e);
-    }
-  };
   return (
     <div
       className="section-overlay"
@@ -104,18 +125,28 @@ export const NewPostSection = ({
               placeholder="What's on your mind?..."
             />
           </div>
+          <img
+            style={{ width: "40%", alignSelf: "center", maxHeight: "30rem" }}
+            src={
+              previewSource ||
+              postData?.image ||
+              "https://leaveitwithme.com.au/wp-content/uploads/2013/11/dummy-image-square.jpg"
+            }
+            alt={"upload"}
+          />
         </div>
         <div className="new-post_actions ">
           <div className=" flex-align-center">
             <FaRegSmile className="icons emoji-icon" />
             <MdGif className="icons gif-icon" />
-            {/* <FiImage className="icons" /> */}
             <input
               type="file"
               accept="image/jpeg,image/png,image/webp,"
-              onChange={(e) => setSelectedImage(e.target.files[0])}
+              onChange={handleInputChange}
             />
-            <button onClick={uploadImage}> Upload </button>
+            <Button className="outline-btn-primary" onClick={uploadImage}>
+              {loading ? "Uploading..." : "Upload"}
+            </Button>
           </div>
           <p className="char-count">
             {characterLimit - postData.content.length}

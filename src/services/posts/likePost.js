@@ -9,6 +9,6 @@ export const likePost = async ({ postId, dispatch, updatePosts, showToast }) => 
         }
     }
     catch (e) {
-        showToast({ title: e.response.errors, type: 'error' });
+        showToast({ title: e?.response?.errors, type: 'error' });
     }
 }
