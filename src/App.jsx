@@ -17,7 +17,7 @@ import { RequireAuth } from "./utils/RequireAuth";
 const WithSidebar = () => {
   return (
     <>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <RightSidebar />
       <Outlet />
     </>

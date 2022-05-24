@@ -14,6 +14,7 @@ export const SignUp = () => {
     username: "",
     email: "",
     password: "",
+    image: "https://media.istockphoto.com/vectors/man-artist-painting-autumn-tree-landscape-in-the-park-isolated-vector-vector-id1058684612?k=20&m=1058684612&s=612x612&w=0&h=edHBtI190lKLq_a0YbCWSliJ_FyHsPcysvOZ6fK_Ap0="
   });
   const { firstName, lastName, username, email, password } = inputValues;
   const [agreeToTerms, setAgreeToTerms] = useState(false);
@@ -78,7 +79,7 @@ export const SignUp = () => {
           onChange={(e) =>
             setInputValues({ ...inputValues, username: e.target.value })
           }
-          label={"username"}
+          label={"Username"}
         />
         <InputField
           value={email}

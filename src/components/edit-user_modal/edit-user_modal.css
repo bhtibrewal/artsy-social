@@ -10,6 +10,9 @@
 .edit-user_modal .btn {
   margin-left: auto;
 }
+.edit-modal-pic{
+  max-height:30rem;
+}
 .artsy-textarea textarea {
   width: 100%;
   padding: 0.5rem;

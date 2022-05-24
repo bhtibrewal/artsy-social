@@ -1,8 +1,8 @@
 import "./single-post_page.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useAuth, } from "../../contexts";
-import {useSelector} from 'react-redux';
+import { useAuth } from "../../contexts";
+import { useSelector } from "react-redux";
 import { Comment, CommentSection, Loader, UserSection } from "../../components";
 
 export const SinglePostPage = () => {
@@ -36,7 +36,9 @@ export const SinglePostPage = () => {
   return (
     <main className="main single-post_main">
       <div className="single-post">
-        <div className="image-section">{image && <img alt={title} src={image} loading="lazy" />}</div>
+        <div className="image-section center">
+          {image && <img alt={title} src={image} loading="lazy" />}
+        </div>
         <div className="right-section">
           <UserSection user={{ username, profile_pic, firstName, lastName }} />
           <section className="comments">

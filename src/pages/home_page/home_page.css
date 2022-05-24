@@ -57,6 +57,8 @@
   padding: 2rem 2rem;
   margin-block: 2rem;
   border-radius: 4px;
+  max-width: 40rem;
+  margin: auto;
 }
 .sort-by {
   position: relative;

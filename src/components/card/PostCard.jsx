@@ -117,7 +117,7 @@ export const PostCard = (props) => {
           )}
         </div>
       </div>
-      <Link to={`/post/${id}`}>{image && <img alt={title} src={image} />}</Link>
+      {image && <img className="post-image" alt={title} src={image} />}
       <div className="post-content">
         <p className="body-l">{title} </p>
         <p>{content}</p>

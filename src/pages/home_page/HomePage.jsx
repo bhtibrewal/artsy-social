@@ -5,7 +5,7 @@ import { FaAngleDown } from "../../assets/icons";
 import { useSelector } from "react-redux";
 
 export const HomePage = () => {
-  const {  posts } = useSelector((state) => state.posts);
+  const { status, posts } = useSelector((state) => state.posts);
 
   const [sortBy, setSortBy] = useState("latest");
   const [showSortByDropdown, setShowSortByDropdown] = useState(false);
@@ -18,7 +18,7 @@ export const HomePage = () => {
     return [...posts].sort(sortBy === "latest" ? latestFirst : oldestFirst);
   }, [sortBy, posts]);
 
-  if (posts?.length === 0) return <Loader />;
+  if (status === "loading") return <Loader />;
   return (
     <>
       <FloatingNewPostButton />
