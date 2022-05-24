@@ -7,3 +7,8 @@
   padding: 2rem;
 }
 
+@media screen and (max-width: 60em) {
+  .right-sidebar {
+    display: none;
+  }
+}

@@ -3,8 +3,16 @@
   margin: 2rem auto;
   max-width: 60rem;
 }
-.user-section{
-  margin:1rem 0 1rem 2rem;
+
+.post-image {
+  border-radius: 2rem;
+  max-height: 40rem;
+  padding-inline: 1rem;
+  margin: auto;
+  width: 100%;
+}
+.user-section {
+  margin: 1rem 0 1rem 2rem;
   gap: 2rem;
 }
 .post-content {
@@ -13,12 +21,12 @@
   flex-direction: column;
   gap: 1rem;
 }
-.post-menu{
+.post-menu {
   position: relative;
   margin-left: auto;
   margin-right: 2rem;
 }
-.post-menu .dropdown{
+.post-menu .dropdown {
   width: 14rem;
   right: 0;
 }
@@ -27,18 +35,17 @@
   gap: 2rem;
   margin: 0 2rem;
 }
-.post-actions-icons{
+.post-actions-icons {
   font-size: 1.4em;
-  cursor:pointer;
+  cursor: pointer;
 }
-.likes-count{
+.likes-count {
   margin-left: auto;
-  
 }
 .comment-section {
   gap: 1rem;
   padding: 0 2rem;
-  border-top:thin solid;
+  border-top: thin solid;
 }
 .comment-input {
   padding: 10px;

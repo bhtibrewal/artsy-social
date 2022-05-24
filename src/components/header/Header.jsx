@@ -9,12 +9,6 @@ export const Header = ({ setDisplaySidebar }) => {
   const { isUserLoggedIn } = useAuth();
   return (
     <header className="header">
-      <button
-        className="btn"
-        onClick={() => setDisplaySidebar((prev) => !prev)}
-      >
-        <HiMenu />
-      </button>
 
       <Link to="/">
         <p className="body-l"> Artsy Social</p>

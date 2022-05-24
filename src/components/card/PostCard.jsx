@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   FaHeart,
@@ -11,18 +12,18 @@ import {
   FiEdit,
   FiDelete,
 } from "../../assets/icons";
-import { useAuth, usePosts, useToast } from "../../contexts";
+import { useAuth, useToast } from "../../contexts";
 import {
   bookmarkPost,
   likePost,
   removeBookmark,
   dislikePost,
-  editPost,
   deletePost,
 } from "../../services";
 import { NewPostSection } from "../create_new_post/NewPostSection";
 import { UserSection, CommentSection } from "../index";
 import { LikedByModal } from "../likedby_modal/LikedByModal";
+import { updatePosts } from "../../redux/reducers/postsSlice";
 
 export const PostCard = (props) => {
   const {
@@ -50,19 +51,19 @@ export const PostCard = (props) => {
     userData: { username: currentUser, bookmarks, profile_pic: currProfilePic },
     userDataDispatch,
   } = useAuth();
-  const { postsStateDispatch } = usePosts();
+  const dispatch = useDispatch();
   const { showToast } = useToast();
 
   const isLiked = likedBy.some((user) => {
     return user.username === currentUser;
   });
-  const isBookmarked = bookmarks?.some((post) => post._id === _id);
+  const isBookmarked = bookmarks?.includes(_id);
 
   const likeHandler = () => {
     if (isUserLoggedIn)
       isLiked
-        ? dislikePost({ postId: _id, postsStateDispatch, showToast })
-        : likePost({ postId: _id, postsStateDispatch, showToast });
+        ? dislikePost({ postId: _id, dispatch, updatePosts, showToast })
+        : likePost({ postId: _id, dispatch, updatePosts, showToast });
     else navigate("/sign-in", { from: location });
   };
 
@@ -96,13 +97,17 @@ export const PostCard = (props) => {
           )}
           {showPostMenuDropdown && (
             <div className="dropdown">
-              <p onClick={() => editPostHandler()}>
+              <p
+                className="flex-align-center"
+                onClick={() => editPostHandler()}
+              >
                 <FiEdit />
                 Edit
               </p>
               <p
+                className="flex-align-center"
                 onClick={() =>
-                  deletePost({ postId: _id, postsStateDispatch, showToast })
+                  deletePost({ postId: _id, dispatch, updatePosts, showToast })
                 }
               >
                 <FiDelete />
@@ -112,7 +117,7 @@ export const PostCard = (props) => {
           )}
         </div>
       </div>
-      <Link to={`/post/${id}`}>{image && <img alt={title} src={image} />}</Link>
+      {image && <img className="post-image" alt={title} src={image} />}
       <div className="post-content">
         <p className="body-l">{title} </p>
         <p>{content}</p>

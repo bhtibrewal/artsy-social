@@ -10,7 +10,6 @@ export const signIn = async ({
     navigateBack
 }) => {
     try {
-        console.log(data)
         const res = await axios.post("/api/auth/login", data);
         if (res.status === 200) {
             const {

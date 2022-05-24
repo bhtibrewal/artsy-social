@@ -1,7 +1,8 @@
 import "./single-post_page.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useAuth, usePosts } from "../../contexts";
+import { useAuth } from "../../contexts";
+import { useSelector } from "react-redux";
 import { Comment, CommentSection, Loader, UserSection } from "../../components";
 
 export const SinglePostPage = () => {
@@ -19,22 +20,25 @@ export const SinglePostPage = () => {
     likes: { likeCount, likedBy } = {},
   } = post;
   const { postId } = useParams();
-  const { postsState } = usePosts();
+  const { posts } = useSelector((state) => state.posts);
+
   const {
     userData: { profile_pic: currProfilePic },
   } = useAuth();
 
   useEffect(() => {
-    const foundPost = postsState?.find((post) => post.id === postId);
+    const foundPost = posts?.find((post) => post.id === postId);
     if (foundPost) setPost(foundPost);
-  }, [postsState]);
+  }, [posts]);
 
   if (Object.values(post).length === 0) return <Loader />;
 
   return (
     <main className="main single-post_main">
       <div className="single-post">
-        <div className="image-section">{image && <img alt={title} src={image} loading="lazy" />}</div>
+        <div className="image-section center">
+          {image && <img alt={title} src={image} loading="lazy" />}
+        </div>
         <div className="right-section">
           <UserSection user={{ username, profile_pic, firstName, lastName }} />
           <section className="comments">

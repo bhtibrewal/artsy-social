@@ -2,6 +2,8 @@ import { useState } from "react";
 import { usePosts, useToast } from "../../contexts";
 import { CommentSection } from "./CommentSection";
 import { deleteComment } from "../../services";
+import { useDispatch } from "react-redux";
+import { updatePosts } from "../../redux/reducers/postsSlice";
 
 export const Comment = (props) => {
   const {
@@ -19,10 +21,10 @@ export const Comment = (props) => {
   } = props;
 
   const [showReplySection, setShowReplySection] = useState(false);
-  const {postsStateDispatch } = usePosts();
+  const dispatch = useDispatch();
   const { showToast } = useToast();
   const deleteCommentHandler = () => {
-    deleteComment({ postsStateDispatch, postId, commentId, showToast });
+    deleteComment({ dispatch, updatePosts, postId, commentId, showToast });
   };
   const deleteReplyHandler = (replyId) => {};
 
@@ -66,7 +68,7 @@ export const Comment = (props) => {
                   <p> {reply}</p>
                   <button
                     className="comment-action"
-                    onClick={()=>deleteReplyHandler(_id)}
+                    onClick={() => deleteReplyHandler(_id)}
                   >
                     {" "}
                     Delete
