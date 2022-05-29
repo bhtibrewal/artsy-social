@@ -1,12 +1,18 @@
-
 .single-post {
   display: flex;
   justify-content: space-evenly;
-  height:100%;
+  height: 100%;
+}
+@media screen and (max-width: 50em) {
+  .single-post {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 .image-section {
   padding: 2rem;
   height: 100%;
+  max-width: 50%;
 }
 .right-section {
   display: flex;
@@ -22,7 +28,7 @@
   display: flex;
   padding: 1rem;
 }
-.comment-action{
-  background-color:transparent;
+.comment-action {
+  background-color: transparent;
   margin: 1rem;
 }

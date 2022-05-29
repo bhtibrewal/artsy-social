@@ -4,6 +4,11 @@
   display: flex;
   flex-direction: column;
 }
+@media screen and (max-width: 60em) {
+  .aside {
+    display: none;
+  }
+}
 .aside-item {
   display: flex;
   align-items: center;

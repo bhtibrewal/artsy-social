@@ -6,7 +6,7 @@ import {
   HomePage,
   Page404,
   SignIn,
-  SignUp, 
+  SignUp,
   SinglePostPage,
   UserProfile,
 } from "./pages";
@@ -17,7 +17,7 @@ import { RequireAuth } from "./utils/RequireAuth";
 const WithSidebar = () => {
   return (
     <>
-      {/* <Sidebar /> */}
+      <Sidebar />
       <RightSidebar />
       <Outlet />
     </>
@@ -44,7 +44,7 @@ function App() {
         </Route>
         <Route path="*" element={<Page404 />} />
         <Route path="/sign-in" element={<SignIn />} />
-        <Route path ="/sign-up" element={<SignUp />} />
+        <Route path="/sign-up" element={<SignUp />} />
       </Routes>
       <Toast position="bottom-right" />
     </div>
