@@ -1,12 +1,19 @@
 import "./home_page.css";
 import { useState, useMemo } from "react";
-import { FloatingNewPostButton, Loader, PostCard } from "../../components";
-import { FaAngleDown } from "../../assets/icons";
 import { useSelector } from "react-redux";
+import {
+  FloatingNewPostButton,
+  Loader,
+  PostCard,
+  InfinityLoader,
+} from "../../components";
+import { FaAngleDown } from "../../assets/icons";
+
+import { useInfiniteScroll } from "../../custom_hooks";
 
 export const HomePage = () => {
-  const { status, posts } = useSelector((state) => state.posts);
-
+  const { status } = useSelector((state) => state.posts);
+  const { posts, loading, lastElementRef, hasMorePosts } = useInfiniteScroll();
   const [sortBy, setSortBy] = useState("latest");
   const [showSortByDropdown, setShowSortByDropdown] = useState(false);
 
@@ -44,6 +51,14 @@ export const HomePage = () => {
           {postsList.map((post) => {
             return <PostCard key={post._id} {...post} />;
           })}
+          <div className="last-element " ref={lastElementRef}>
+            {hasMorePosts && loading && (
+              <>
+                <h3>Loading...</h3>
+                <InfinityLoader />
+              </>
+            )}
+          </div>
         </section>
       </main>
     </>

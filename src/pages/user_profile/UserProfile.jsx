@@ -116,20 +116,24 @@ export const UserProfile = () => {
         >
           Posts
         </Button>
-        <Button
-          className={showTab === "bookmarks" ? "active" : ""}
-          onClick={() => setShowTab("bookmarks")}
-        >
-          {" "}
-          Bookmarks
-        </Button>
-        <Button
-          className={showTab === "likes" ? "active" : ""}
-          onClick={() => setShowTab("likes")}
-        >
-          {" "}
-          Likes
-        </Button>
+        {username === currUserName && (
+          <>
+            <Button
+              className={showTab === "bookmarks" ? "active" : ""}
+              onClick={() => setShowTab("bookmarks")}
+            >
+              {" "}
+              Bookmarks
+            </Button>
+            <Button
+              className={showTab === "likes" ? "active" : ""}
+              onClick={() => setShowTab("likes")}
+            >
+              {" "}
+              Likes
+            </Button>
+          </>
+        )}
       </div>
       {showTab === "posts" && (
         <div>
