@@ -1,3 +1,26 @@
+/* subscribe modal */
+.section-overlay,
+.subscribe-section-overlay,
+.login-section-overlay,
+.signup-section-overlay,
+.signin-section-overlay {
+  background: var(--light-black);
+  backdrop-filter: blur(2px);
+  width: 100vw;
+  height: 100vh;
+  z-index: var(--z-index-modal);
+  position: fixed;
+  top: 0;
+  justify-content: center;
+  gap: 1rem;
+  left: 0;
+}
+.login-section-overlay,
+.signup-section-overlay,
+.signin-section-overlay {
+  display: none;
+}
+
 .sign-in_main {
   display: flex;
   align-items: center;
