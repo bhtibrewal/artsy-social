@@ -1,4 +1,5 @@
 import "../auth.css";
+import image from "../../../assets/images/hero_image.jpg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth, useToast } from "../../../contexts";
@@ -46,7 +47,8 @@ export const SignIn = () => {
   };
 
   return (
-    <main className="main center">
+    <main className="main sign-in_main">
+      <img src={image} alt="social icons" className="hero-image"/>
       <form className="flex-col signup-sec" onSubmit={submitHandler}>
         <p className="body-l">Login to my user account.</p>
 
@@ -74,7 +76,6 @@ export const SignIn = () => {
         </label>
         <Button className="btn-primary" type="submit">
           <span>validate</span>
-          <i className="fa-solid fa-arrow-right-long"></i>
         </Button>
         <Button
           className="outline-btn-primary"

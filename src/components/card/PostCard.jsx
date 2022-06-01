@@ -24,6 +24,7 @@ import { NewPostSection } from "../create_new_post/NewPostSection";
 import { UserSection, CommentSection } from "../index";
 import { LikedByModal } from "../likedby_modal/LikedByModal";
 import { updatePosts } from "../../redux/reducers/postsSlice";
+import { ImageRenderer } from "../image_renderer/ImageRenderer";
 
 export const PostCard = (props) => {
   const {
@@ -117,7 +118,9 @@ export const PostCard = (props) => {
           )}
         </div>
       </div>
-      {image && <img className="post-image" alt={title} src={image} />}
+
+      {image && <ImageRenderer alt={title} src={image} />}
+
       <div className="post-content">
         <p className="body-l">{title} </p>
         <p>{content}</p>

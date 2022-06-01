@@ -1,0 +1,23 @@
+.image-container{
+  align-self: center;
+}
+.post-image {
+  max-height: 20rem;
+  padding-inline: 1rem;
+  margin: auto;
+  max-width: 100%;
+  opacity: 0;
+}
+.post-image.isLoaded {
+  transition: opacity 2s ease-out;
+  opacity: 1;
+}
+.thumb {
+  opacity: 1;
+  filter: blur(4px);
+  transition: opacity 2s ease-out;
+  position: absolute;
+}
+.thumb.isLoaded {
+  opacity: 0;
+}

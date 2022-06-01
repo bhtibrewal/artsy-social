@@ -11,7 +11,7 @@ export const Header = ({ setDisplaySidebar }) => {
     <header className="header">
 
       <Link to="/">
-        <p className="body-l"> Artsy Social</p>
+        <p className="body-l"> Artsy Talk</p>
       </Link>
 
       <Search />
