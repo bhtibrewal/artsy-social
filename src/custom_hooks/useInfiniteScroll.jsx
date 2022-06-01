@@ -13,7 +13,6 @@ export const useInfiniteScroll = () => {
 
     if (target.isIntersecting && hasMorePosts) {
       setLoading(true);
-      console.log(pageNumber, loading);
       interval = setTimeout(() => {
         setPageNumber((prev) => prev + 1);
         setLoading(false);
@@ -26,8 +25,6 @@ export const useInfiniteScroll = () => {
     const observer = new IntersectionObserver(handleObserver, {
       threshold: 0.5,
     });
-
-    console.log(pageNumber, loading);
     if (reference) observer.observe(reference);
 
     return () => {

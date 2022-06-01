@@ -1,25 +1,19 @@
-/* subscribe modal */
-.section-overlay,
-.subscribe-section-overlay,
-.login-section-overlay,
-.signup-section-overlay,
-.signin-section-overlay {
-  background: var(--light-black);
-  backdrop-filter: blur(2px);
-  width: 100vw;
-  height: 100vh;
-  z-index: var(--z-index-modal);
-  position: fixed;
-  top: 0;
+.sign-in_main {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 1rem;
-  left: 0;
 }
-.login-section-overlay,
-.signup-section-overlay,
-.signin-section-overlay {
-  display: none;
+
+@media screen and (max-width: 40em) {
+  .sign-in_main {
+    flex-direction: column;
+  }
 }
+.hero-image {
+  max-height: 90%;
+  width: 50%;
+}
+
 .subscribe-section,
 .signup-sec {
   max-width: 50rem;
@@ -29,7 +23,7 @@
   align-items: stretch;
   text-align: center;
 }
-.artsy-input .input-label{
+.artsy-input .input-label {
   background-color: var(--light-text);
 }
 .overlay-close {

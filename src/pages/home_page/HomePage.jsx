@@ -51,12 +51,9 @@ export const HomePage = () => {
           {postsList.map((post) => {
             return <PostCard key={post._id} {...post} />;
           })}
-          <div className="last-element " ref={lastElementRef}>
+          <div className="last-element center " ref={lastElementRef}>
             {hasMorePosts && loading && (
-              <>
-                <h3>Loading...</h3>
                 <InfinityLoader />
-              </>
             )}
           </div>
         </section>

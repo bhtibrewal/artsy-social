@@ -14,9 +14,16 @@ Live Preview: https://artsysocial.netlify.app/
 - Bookmark Post
 - Search User
 - Upload Images with Cloudinary
-- User Authentication
+- User Authentication and Form validation
 - Add/Delete Comment
 - Add Reply to a comment
+
+## Additional Features
+
+- Infinite scroll using Intersection Observer
+- Performance Optimization with debounce
+- Lazy Loading Images using Intersection Observer
+- Mobile Friendly
 
 ![image](https://user-images.githubusercontent.com/42600164/169650615-1f20b58d-3a3f-4ab0-850c-9bb77d16e3ae.png)
 ![image](https://user-images.githubusercontent.com/42600164/169650691-e9defa2d-9d29-494c-bbef-dde80eaf761f.png)

@@ -1,4 +1,5 @@
 Features added: 
-- added Infinite Scroll
-- added Debounce in Search
-- 
+- Infinite Scroll
+- Debounce in Search
+- UI changes
+- lazy loading images
