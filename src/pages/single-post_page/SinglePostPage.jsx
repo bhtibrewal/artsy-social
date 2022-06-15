@@ -5,7 +5,7 @@ import { useAuth } from "../../contexts";
 import { useSelector } from "react-redux";
 import { Comment, CommentSection, Loader, UserSection } from "../../components";
 
-export const SinglePostPage = () => {
+const SinglePostPage = () => {
   const [post, setPost] = useState({});
   const {
     _id,
@@ -59,3 +59,4 @@ export const SinglePostPage = () => {
     </main>
   );
 };
+export default SinglePostPage;

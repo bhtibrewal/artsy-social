@@ -4,7 +4,7 @@ import { Button, InputField, PasswordInput } from "../../../components";
 import { useToast, useAuth } from "../../../contexts";
 import { signUp } from "../../../services";
 
-export const SignUp = () => {
+const SignUp = () => {
   const navigate = useNavigate();
   const { setIsUserLoggedIn, userDataDispatch } = useAuth();
   const { showToast } = useToast();
@@ -143,3 +143,4 @@ export const SignUp = () => {
     </main>
   );
 };
+export default SignUp;

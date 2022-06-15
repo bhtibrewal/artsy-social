@@ -8,7 +8,7 @@ import { followUser, getUser, unfollowUser } from "../../services";
 import { EditUserModal } from "../../components/edit-user_modal/EditUserModal";
 import { UserStats } from "./components/UserStats";
 
-export const UserProfile = () => {
+const UserProfile = () => {
   const { username } = useParams();
   const [userToShow, setUserToShow] = useState({});
   const {
@@ -169,3 +169,4 @@ export const UserProfile = () => {
     </main>
   );
 };
+export default UserProfile;

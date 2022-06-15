@@ -7,7 +7,7 @@ import { useDocumentTitle } from "../../../custom_hooks";
 import { InputField, Button, PasswordInput } from "../../../components";
 import { signIn } from "../../../services";
 
-export const SignIn = () => {
+const SignIn = () => {
   useDocumentTitle("| Sign In");
   const navigate = useNavigate();
   const location = useLocation();
@@ -111,3 +111,5 @@ export const SignIn = () => {
     </main>
   );
 };
+
+export default SignIn;
