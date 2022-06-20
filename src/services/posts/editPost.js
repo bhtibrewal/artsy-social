@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "../../axios"
 
 export const editPost = async ({ postId, postData = {}, dispatch, updatePosts, showToast }) => {
     try {

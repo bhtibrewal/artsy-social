@@ -7,6 +7,8 @@ import { Button, PostCard } from "../../components";
 import { followUser, getUser, unfollowUser } from "../../services";
 import { EditUserModal } from "../../components/edit-user_modal/EditUserModal";
 import { UserStats } from "./components/UserStats";
+import { useDocumentTitle } from "custom_hooks";
+import { FaLink } from "react-icons/fa";
 
 const UserProfile = () => {
   const { username } = useParams();
@@ -14,18 +16,17 @@ const UserProfile = () => {
   const {
     _id,
     profile_pic,
-    firstName,
-    lastName,
+    name,
     bio,
     followers = [],
     following = [],
     website,
     bookmarks,
   } = userToShow;
-
+  useDocumentTitle(name);
   const { showToast } = useToast();
   const {
-    userData: { username: currUserName },
+    userData: { _id: userId, username: currUserName },
     userDataDispatch,
   } = useAuth();
   const { posts } = useSelector((state) => state.posts);
@@ -76,11 +77,14 @@ const UserProfile = () => {
             />
           </div>
 
-          <p className="body-l">
-            {firstName} {lastName}
-          </p>
+          <p className="body-l">{name}</p>
           <p>{bio}</p>
-          <p>{website}</p>
+          {website !== "" && (
+            <a href={website}>
+              <FaLink />
+              <p>{website}</p>
+            </a>
+          )}
         </div>
         {username !== currUserName ? (
           <Button
@@ -109,6 +113,7 @@ const UserProfile = () => {
         followersCount={followers?.length}
         followingCount={following?.length}
       />
+      {/* tabs */}
       <div className="tabs">
         <Button
           className={showTab === "posts" ? "active" : ""}
@@ -135,13 +140,14 @@ const UserProfile = () => {
           </>
         )}
       </div>
+
       {showTab === "posts" && (
         <div>
           {posts
-            .filter((post) => post.username === username)
-            .map((post) => (
-              <PostCard key={post._id} {...post} />
-            ))}
+            .filter((post) => post.user?._id === userId)
+            .map((post) => <PostCard key={post._id} {...post} />) || (
+            <h2>No Posts</h2>
+          )}
         </div>
       )}
       {showTab === "bookmarks" && (
@@ -158,9 +164,7 @@ const UserProfile = () => {
       {showTab === "likes" && (
         <div>
           {posts
-            .filter((post) =>
-              post.likes?.likedBy?.some((user) => user.username === username)
-            )
+            .filter((post) => post.likes?.some((_id) => _id === userId))
             .map((post) => (
               <PostCard key={post._id} {...post} />
             ))}

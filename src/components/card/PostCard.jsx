@@ -29,7 +29,7 @@ import { ImageRenderer } from "../image_renderer/ImageRenderer";
 export const PostCard = (props) => {
   const {
     _id,
-    id,
+    user,
     title,
     content,
     image,
@@ -38,7 +38,7 @@ export const PostCard = (props) => {
     username,
     profile_pic,
     comments,
-    likes: { likeCount, likedBy },
+    likes,
   } = props;
 
   const location = useLocation();
@@ -49,14 +49,19 @@ export const PostCard = (props) => {
 
   const {
     isUserLoggedIn,
-    userData: { username: currentUser, bookmarks, profile_pic: currProfilePic },
+    userData: {
+      _id: currentUserId,
+      username: currentUser,
+      bookmarks,
+      profile_pic: currProfilePic,
+    },
     userDataDispatch,
   } = useAuth();
   const dispatch = useDispatch();
   const { showToast } = useToast();
 
-  const isLiked = likedBy.some((user) => {
-    return user.username === currentUser;
+  const isLiked = likes?.some((userId) => {
+    return userId === currentUserId;
   });
   const isBookmarked = bookmarks?.includes(_id);
 
@@ -79,12 +84,13 @@ export const PostCard = (props) => {
     setShowEditPostModal(true);
   };
 
+  console.log(user?._id, currentUserId);
   return (
     <div className="card post-card">
       <div className="flex-align-center">
         <UserSection user={{ username, profile_pic, firstName, lastName }} />
         <div className="post-menu">
-          {username === currentUser ? (
+          {user?._id === currentUserId ? (
             <button
               className="post-menu-btn"
               onClick={() => setShowPostMenuDropdown((prev) => !prev)}
@@ -138,11 +144,11 @@ export const PostCard = (props) => {
 
         <p
           className="likes-count"
-          onClick={() => likeCount && setIsLikedByModalVisible(true)}
+          onClick={() => likes.length && setIsLikedByModalVisible(true)}
         >
-          {likeCount} Likes
+          {likes.length} Likes
         </p>
-        <Link to={`/post/${id}`}>
+        <Link to={`/post/${_id}`}>
           {" "}
           <p> {comments.length} comments</p>
         </Link>
@@ -153,7 +159,7 @@ export const PostCard = (props) => {
       {/* modals */}
       {isLikedByModalVisible && (
         <LikedByModal
-          likedBy={likedBy}
+          likedBy={likes}
           setIsLikedByModalVisible={setIsLikedByModalVisible}
         />
       )}

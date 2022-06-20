@@ -18,13 +18,15 @@ const HomePage = () => {
   const [showSortByDropdown, setShowSortByDropdown] = useState(false);
 
   // sort By latest first or oldest first
-  const latestFirst = (a, b) => new Date(a.createdAt) - new Date(b.createdAt);
-  const oldestFirst = (a, b) => new Date(b.createdAt) - new Date(a.createdAt);
+  const oldestFirst = (a, b) => new Date(a.createdAt) - new Date(b.createdAt);
+  const latestFirst = (a, b) => new Date(b.createdAt) - new Date(a.createdAt);
 
-  const postsList = [...posts].sort(sortBy === "latest" ? latestFirst : oldestFirst);
-
+  const postsList = [...posts].sort(
+    sortBy === "latest" ? latestFirst : oldestFirst
+  );
 
   if (status === "loading") return <Loader />;
+
   return (
     <>
       <FloatingNewPostButton />
@@ -51,9 +53,7 @@ const HomePage = () => {
             return <PostCard key={post._id} {...post} />;
           })}
           <div className="last-element center " ref={lastElementRef}>
-            {hasMorePosts && loading && (
-                <InfinityLoader />
-            )}
+            {hasMorePosts && loading && <InfinityLoader />}
           </div>
         </section>
       </main>

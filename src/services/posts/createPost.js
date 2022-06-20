@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "../../axios"
 
 export const createPost = async ({ postData, dispatch, updatePosts, showToast }) => {
     try {
@@ -9,6 +9,7 @@ export const createPost = async ({ postData, dispatch, updatePosts, showToast })
         }
     }
     catch (e) {
+        console.log(e.response)
         showToast({ title: e.response.errors, type: 'error' });
     }
 }

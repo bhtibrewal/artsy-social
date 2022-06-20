@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 export const UserSection = (props) => {
-  const { username, profile_pic, firstName, lastName } = props.user;
+  const { username, profile_pic, name } = props.user;
   return (
     <Link
       to={`/user-profile/${username}`}
@@ -17,7 +17,7 @@ export const UserSection = (props) => {
       </div>
       <div>
         <p className="user-name">
-          {firstName} {lastName}
+          {name}
         </p>
         <p className="user-handle">{username}</p>
       </div>

@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "../../axios"
 
 export const followUser = async ({ followUserId, setUserToShow, userDataDispatch, showToast }) => {
     try {

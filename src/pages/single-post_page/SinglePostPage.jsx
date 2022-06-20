@@ -27,7 +27,7 @@ const SinglePostPage = () => {
   } = useAuth();
 
   useEffect(() => {
-    const foundPost = posts?.find((post) => post.id === postId);
+    const foundPost = posts?.find((post) => post._id === postId);
     if (foundPost) setPost(foundPost);
   }, [posts]);
 

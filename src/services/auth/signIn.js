@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../axios";
 
 export const signIn = async ({
     setSigninError,
@@ -10,25 +10,26 @@ export const signIn = async ({
     navigateBack
 }) => {
     try {
-        const res = await axios.post("/api/auth/login", data);
+        const res = await axios.post("/api/auth/login", JSON.stringify(data));
         if (res.status === 200) {
+            console.log(res)
             const {
                 data: {
-                    foundUser,
-                    encodedToken
+                    user,
+                    token
                 }
             } = res;
             userDataDispatch({
                 type: "LOGIN_USER",
-                payload: foundUser
+                payload: user
             })
             setIsUserLoggedIn(true);
-            axios.defaults.headers.common["authorization"] = encodedToken;
+            axios.defaults.headers.common["authorization"] = token;
             showToast({ title: 'logged in successfully', type: 'success' });
             if (keepMeLoggedIn) {
-                localStorage.setItem("token", encodedToken);
+                localStorage.setItem("token", token);
                 localStorage.setItem('user', JSON.stringify({
-                    ...foundUser
+                    ...user
                 }))
             }
             navigateBack();

@@ -39,7 +39,7 @@ export const users = [
     email: "Shubhamsoni@gmail.com",
     password: "Shubham@123",
     profile_pic: "https://en.pimg.jp/066/175/574/1/66175574.jpg",
-    bio: " Hi, Shubham here, Frontend developer",
+    bio: "Hi, Shubham here, Frontend developer",
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
