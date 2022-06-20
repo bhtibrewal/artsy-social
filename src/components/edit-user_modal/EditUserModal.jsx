@@ -12,8 +12,7 @@ export const EditUserModal = ({
   const [updatedUserData, setUpdatedUserData] = useState(userToShow);
   const {
     username = "",
-    firstName = "",
-    lastName = "",
+    name = "",
     bio = "",
     profile_pic,
     website = "",
@@ -41,33 +40,20 @@ export const EditUserModal = ({
         <div className="flex-align-center">
           <div className="inputs">
             <div className="flex-align-center artsy-input">
-              <label htmlFor="first-name">First Name</label>
+              <label htmlFor="name">Name</label>
               <input
-                id="first-name"
+                id="name"
                 className="name-input"
-                value={firstName}
+                value={name}
                 onChange={(e) =>
                   setUpdatedUserData((prev) => ({
                     ...prev,
-                    firstName: e.target.value,
+                    name: e.target.value,
                   }))
                 }
               />
             </div>
-            <div className="flex-align-center artsy-input">
-              <label htmlFor="last-name">Last Name</label>
-              <input
-                id="last-name"
-                className="name-input"
-                value={lastName}
-                onChange={(e) =>
-                  setUpdatedUserData((prev) => ({
-                    ...prev,
-                    lastName: e.target.value,
-                  }))
-                }
-              />
-            </div>
+            
             <div className="flex-align-center artsy-input">
               <label htmlFor="website">Website</label>
               <input

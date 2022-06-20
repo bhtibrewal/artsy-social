@@ -7,7 +7,7 @@ import { useDocumentTitle } from "../../../custom_hooks";
 import { InputField, Button, PasswordInput } from "../../../components";
 import { signIn } from "../../../services";
 
-export const SignIn = () => {
+const SignIn = () => {
   useDocumentTitle("| Sign In");
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,8 +19,8 @@ export const SignIn = () => {
     password: "",
   });
   const guestLogin = {
-    username: "guest_user",
-    password: "guest@123",
+    password: "guest@1234",
+    username: "guest_123",
   };
   const [keepMeLoggedIn, setKeepMeLoggedIn] = useState(false);
 
@@ -48,7 +48,7 @@ export const SignIn = () => {
 
   return (
     <main className="main sign-in_main">
-      <img src={image} alt="social icons" className="hero-image"/>
+      <img src={image} alt="social icons" className="hero-image" />
       <form className="flex-col signup-sec" onSubmit={submitHandler}>
         <p className="body-l">Login to my user account.</p>
 
@@ -111,3 +111,5 @@ export const SignIn = () => {
     </main>
   );
 };
+
+export default SignIn;

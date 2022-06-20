@@ -12,6 +12,7 @@ function handleIntersections(entries) {
       if (entry.isIntersecting || entry.intersectionRatio > 0) {
         observer.unobserve(entry.target);
         listenerCallbacks.delete(entry.target);
+        console.log(listenerCallbacks, cb)
         cb();
       }
     }

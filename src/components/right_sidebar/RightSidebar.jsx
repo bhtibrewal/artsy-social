@@ -6,6 +6,7 @@ import { useToast } from "../../contexts";
 import "./right_sidebar.css";
 export const RightSidebar = () => {
   const [users, setUsers] = useState([]);
+  
     const {showToast} = useToast();
 
   useEffect(() => {
@@ -20,17 +21,18 @@ export const RightSidebar = () => {
         </p>
         <div>
           {users.map((user) => {
+            const {username, name , _id, profile_pic} = user;
             return (
               <Link
-                to={`/user-profile/${user.username}`}
-                key={user._id}
+                to={`/user-profile/${username}`}
+                key={_id}
                 className="flex-align-center suggested-user"
               >
                 <div className="avatar avatar-s">
-                  <img src={user.profile_pic} alt="avatar" />
+                  <img src={profile_pic} alt="avatar" />
                 </div>
                 <span>
-                  {user.firstName} {user.lastName}
+                  {name} 
                 </span>
               </Link>
             );

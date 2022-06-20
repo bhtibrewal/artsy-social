@@ -11,21 +11,22 @@ import { FaAngleDown } from "../../assets/icons";
 
 import { useInfiniteScroll } from "../../custom_hooks";
 
-export const HomePage = () => {
+const HomePage = () => {
   const { status } = useSelector((state) => state.posts);
   const { posts, loading, lastElementRef, hasMorePosts } = useInfiniteScroll();
   const [sortBy, setSortBy] = useState("latest");
   const [showSortByDropdown, setShowSortByDropdown] = useState(false);
 
   // sort By latest first or oldest first
-  const latestFirst = (a, b) => new Date(a.createdAt) - new Date(b.createdAt);
-  const oldestFirst = (a, b) => new Date(b.createdAt) - new Date(a.createdAt);
+  const oldestFirst = (a, b) => new Date(a.createdAt) - new Date(b.createdAt);
+  const latestFirst = (a, b) => new Date(b.createdAt) - new Date(a.createdAt);
 
-  const postsList = useMemo(() => {
-    return [...posts].sort(sortBy === "latest" ? latestFirst : oldestFirst);
-  }, [sortBy, posts]);
+  const postsList = [...posts].sort(
+    sortBy === "latest" ? latestFirst : oldestFirst
+  );
 
   if (status === "loading") return <Loader />;
+
   return (
     <>
       <FloatingNewPostButton />
@@ -52,12 +53,11 @@ export const HomePage = () => {
             return <PostCard key={post._id} {...post} />;
           })}
           <div className="last-element center " ref={lastElementRef}>
-            {hasMorePosts && loading && (
-                <InfinityLoader />
-            )}
+            {hasMorePosts && loading && <InfinityLoader />}
           </div>
         </section>
       </main>
     </>
   );
 };
+export default HomePage;

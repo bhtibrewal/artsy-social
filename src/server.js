@@ -62,7 +62,7 @@ export function makeServer({ environment = "development" } = {}) {
       this.post("/auth/login", loginHandler.bind(this));
 
       // post routes (public)
-      this.get("/posts", getAllpostsHandler.bind(this));
+      // this.get("/posts", getAllpostsHandler.bind(this));
       this.get("/posts/:postId", getPostHandler.bind(this));
       this.get("/posts/user/:username", getAllUserPostsHandler.bind(this));
 
@@ -78,7 +78,7 @@ export function makeServer({ environment = "development" } = {}) {
       this.post('/posts/replies/:postId/:commentId', addReplyHandler.bind(this));
 
       // user routes (public)
-      this.get("/users", getAllUsersHandler.bind(this));
+      // this.get("/users", getAllUsersHandler.bind(this));
       this.get("/users/:username", getUserHandler.bind(this));
 
       // user routes (private)
@@ -96,6 +96,7 @@ export function makeServer({ environment = "development" } = {}) {
       );
       this.passthrough();
       this.passthrough("https://api.cloudinary.com/v1_1/bhtibrewal-cloud/image/upload");
+      this.passthrough( "https://artsytalk-api.herokuapp.com/api/*")
     },
   });
 }
